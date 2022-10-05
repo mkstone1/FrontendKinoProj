@@ -1,4 +1,5 @@
 export const kinoUrlScreenings = "http://localhost:8080/api/screenings"
+export const kinoUrlTheaters = "http://localhost:8080/api/theaters"
 
 export async function handleHttpErrors(res) {
     if (!res.ok) {
