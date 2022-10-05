@@ -1,4 +1,4 @@
-import { handleHttpErrors, kinoUrlMovies } from "./utils.js";
+import {handleHttpErrors, kinoUrlMovies, kinoUrlScreenings} from "./utils.js";
 
 window.addEventListener("load", init());
 
@@ -15,9 +15,10 @@ async function getAllMovies() {
     }
 }
 
-function showMovies(movies) {
+async function showMovies(movies) {
     const wrapper = document.getElementById("movie-wrapper");
-    let nodes = movies.map((movie) => {
+
+    let nodes = movies.map(async (movie) => {
         console.log(movie);
         const img = document.createElement("img");
         img.src = "./images/halloween-ends.jpg";
@@ -34,9 +35,36 @@ function showMovies(movies) {
         movieTime.classList.add("movieTime");
         movieTime.innerText = playtime + movie.runTime;
 
+
+        let screenings = []
+        screenings = await getScreeningsFromMovie(movie.screeningIds);
+        const ul = document.createElement("ul");
+        for (let i = 0; i < screenings.length; i++) {
+            const li = document.createElement("li");
+            li.innerText = screenings[i].screeningStartTime;
+            ul.appendChild(li);
+        }
         div.appendChild(img);
         div.appendChild(name);
         div.appendChild(movieTime);
+        div.appendChild(ul);
         wrapper.appendChild(div);
     });
 }
+
+async function getScreeningFromMovie(id) {
+    const screening = await fetch(kinoUrlScreenings + id).then(handleHttpErrors);
+    return screening;
+}
+
+async function getScreeningsFromMovie(screeningIds){
+    const screenings = [];
+    for (let i = 0; i < screeningIds.length; i++) {
+        const screening = await (getScreeningFromMovie(screeningIds[i]));
+        screenings.push(screening);
+    }
+    return screenings;
+}
+
+
+
