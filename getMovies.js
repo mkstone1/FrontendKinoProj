@@ -41,7 +41,10 @@ async function showMovies(movies) {
         const ul = document.createElement("ul");
         for (let i = 0; i < screenings.length; i++) {
             const li = document.createElement("li");
-            li.innerText = screenings[i].screeningStartTime;
+            let s = screenings[i].screeningStartTime;
+            s = s.substring(s.indexOf('T')+1);
+
+            li.innerText = s;
             ul.appendChild(li);
         }
         div.appendChild(img);
