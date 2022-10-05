@@ -1,44 +1,42 @@
-const URL = "http://localhost:8080/api/movies/"
+import { handleHttpErrors, kinoUrlMovies } from "./utils.js";
 
-window.addEventListener("load", init())
+window.addEventListener("load", init());
 
-console.log("lol");
-function init(){
+function init() {
     getAllMovies();
 }
 
 async function getAllMovies() {
     try {
-        const movies = await fetch(URL)
-            .then(res => res.json());
+        const movies = await fetch(kinoUrlMovies).then(handleHttpErrors);
         showMovies(movies);
     } catch (err) {
         console.log(err);
     }
-
 }
 
-function showMovies(movies){
-    console.log(movies)
+function showMovies(movies) {
     const wrapper = document.getElementById("movie-wrapper");
     let nodes = movies.map((movie) => {
-        const div = document.createElement("div")
+        console.log(movie);
+        const img = document.createElement("img");
+        img.src = "./images/halloween-ends.jpg";
+
+        const div = document.createElement("div");
         div.classList.add("movie-object");
 
         const name = document.createElement("h2");
-        name.classList.add("movie-name")
+        name.classList.add("movie-name");
         name.innerText = movie.name;
 
-
         const playtime = "Spilletid: ";
-        const movieTime = document.createElement("p")
+        const movieTime = document.createElement("p");
         movieTime.classList.add("movieTime");
         movieTime.innerText = playtime + movie.runTime;
 
+        div.appendChild(img);
         div.appendChild(name);
         div.appendChild(movieTime);
         wrapper.appendChild(div);
-    })
-    console.log(nodes)
+    });
 }
-
