@@ -1,9 +1,11 @@
 import {kinoUrlScreenings} from "../../utils.js";
 import {kinoUrlTheaters} from "../../utils.js";
+import {kinoUrlMovies} from "../../utils.js";
 import {handleHttpErrors} from "../../utils.js";
 
 window.addEventListener("load", createScreening())
 window.addEventListener("load", getAllTheaters())
+window.addEventListener("load",getAllMovies())
 
 async function createScreening(){
     document.querySelector("#btn-add-screening").onclick = makeNewScreening
@@ -31,15 +33,21 @@ async function createScreening(){
 
 async function getAllTheaters(){
     const theaters = await fetch(kinoUrlTheaters).then(handleHttpErrors)
-    dropDownData(theaters)
+    dropDownData(theaters, "input-choose-theater")
 
-function dropDownData(data){
-    const theaterArray = data.map(theater =>
+
+}
+
+async function getAllMovies(){
+    const movies = await fetch(kinoUrlMovies).then(handleHttpErrors)
+    dropDownData(movies, "input-choose-movie")
+}
+
+function dropDownData(data, elementId){
+    const theaterArray = data.map(data =>
         `
-        <option>
-        ${theater.name}
+        <option value="${data.id}">
+        ${data.name}
         </option>`)
-    const theaterDropDown= document.getElementById("input-choose-theater").innerHTML = theaterArray
+    const theaterDropDown= document.getElementById(elementId).innerHTML = theaterArray
 }
-}
-
