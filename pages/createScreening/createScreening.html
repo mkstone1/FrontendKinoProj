@@ -4,31 +4,28 @@
     <meta charset="UTF-8">
     <title>Create Screening</title>
     <script src="createScreening.js" type="module"></script>
+    <link rel="stylesheet" href="createScreening.css" >
 </head>
 <body>
-<div class = "template">
+<div class ="main-div">
     <h2>Opret en forestilling</h2>
-    <div>
+    <div class="input-divs">
         <p>Vælg sal</p>
-        <input id="input-choose-theater">
+        <select id="input-choose-theater"></select>
     </div>
-    <div>
+    <div class="input-divs">
         <p>Vælg film</p>
         <input id="input-choose-movie">
     </div>
-    <div>
+    <div class="input-divs">
         <p>Vælg start tid</p>
-        <input id="input-choose-start-time">
+        <input id="input-choose-start-time" type="datetime-local">
     </div>
-    <!--<div>
-        <p>Vælg dato</p>
-        <input id="input-choose-start-date">
-    </div>-->
-    <div>
+    <div class="input-divs">
         <p>Pris</p>
         <input id="input-ticket-price">
     </div>
-    <div>
+    <div class="input-divs">
         <p></p>
         <button id="btn-add-screening">Tilføj forestilling</button>
     </div>
