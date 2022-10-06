@@ -3,11 +3,13 @@ import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsTo
 import { adjustForMissingHash, renderTemplate, loadHtml } from "./utils.js";
 
 import { initScreenings } from "./pages/screenings/screenings.js";
+import { initScreening } from "./pages/screening/screening.js";
 
 window.addEventListener("load", init());
 
 async function init() {
     const templateScreenings = await loadHtml("./pages/screenings/screenings.html");
+    const templateScreening = await loadHtml("./pages/screening/screening.html");
 
     const router = new Navigo("/", { hash: true });
     window.router = router;
@@ -18,6 +20,10 @@ async function init() {
             "/": () => {
                 renderTemplate(templateScreenings, "content");
                 initScreenings();
+            },
+            "/screening": () => {
+                renderTemplate(templateScreening, "content");
+                initScreening();
             },
         })
         .notFound(() => {

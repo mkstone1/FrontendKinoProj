@@ -44,7 +44,6 @@ async function getMovieById(id) {
 
 // Viser unikke film
 async function showMovies(movies, screenings) {
-    console.log(screenings);
     const wrapper = document.getElementById("content");
     let nodes = movies.map(async (movie) => {
         const img = document.createElement("img");
@@ -65,11 +64,14 @@ async function showMovies(movies, screenings) {
         const ul = document.createElement("ul");
         for (let i = 0; i < screenings.length; i++) {
             if (movie.id === screenings[i].movieId) {
+                const a = document.createElement("a");
                 const li = document.createElement("li");
                 let string = screenings[i].screeningStartTime;
                 string = string.substring(string.indexOf("T") + 1);
-                li.innerText = string;
-
+                // li.innerText = string;
+                a.textContent = string;
+                a.setAttribute("href", "#/screening?screeningId=" + screenings[i].id);
+                li.appendChild(a);
                 ul.appendChild(li);
             }
         }
