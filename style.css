@@ -6,14 +6,14 @@ body{
 }
 
 
-#movie-wrapper{
+#content{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-#movie-wrapper img {
+#content img {
     width: 100%;
 }
 

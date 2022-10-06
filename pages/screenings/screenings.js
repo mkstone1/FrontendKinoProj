@@ -1,8 +1,6 @@
-import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday } from "./utils.js";
+import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday } from "../../utils.js";
 
-window.addEventListener("load", init());
-
-function init() {
+export function initScreenings() {
     getAllScreenings();
 }
 
@@ -47,7 +45,7 @@ async function getMovieById(id) {
 // Viser unikke film
 async function showMovies(movies, screenings) {
     console.log(screenings);
-    const wrapper = document.getElementById("movie-wrapper");
+    const wrapper = document.getElementById("content");
     let nodes = movies.map(async (movie) => {
         const img = document.createElement("img");
         img.src = "./images/halloween-ends.jpg";
@@ -71,6 +69,7 @@ async function showMovies(movies, screenings) {
                 let string = screenings[i].screeningStartTime;
                 string = string.substring(string.indexOf("T") + 1);
                 li.innerText = string;
+
                 ul.appendChild(li);
             }
         }
