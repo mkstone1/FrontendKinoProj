@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Screening</title>
+  <script src="editScreening.js" type="module"></script>
+  <link rel="stylesheet" href="editScreening.css" >
+</head>
+<body>
+<div class ="main-div">
+  <h1>Rediger en forestilling</h1>
+
+  <div id="screenings-list">
+    <h2>Vælg den forestilling som skal redigeres</h2>
+    <select id="input-choose-screening" class="selects"></select>
+    <ul>
+      <li>
+        <p></p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="input-divs">
+    <h2 class ="select-headers">Vælg sal</h2>
+    <select id="input-choose-theater"class="selects"></select>
+  </div>
+  <div class="input-divs">
+    <h2 class ="select-headers">Vælg film</h2>
+    <select id="input-choose-movie" class="selects"></select>
+  </div>
+  <div class="input-divs">
+    <h2 class ="select-headers">Vælg start tid</h2>
+    <input id="input-choose-start-time" type="datetime-local" class="selects">
+  </div>
+  <div class="input-divs">
+    <h2 class ="select-headers">Pris</h2>
+    <input id="input-ticket-price" class="selects">
+  </div>
+  <div class="input-divs">
+    <p></p>
+    <button id="btn-update-screening" >Opdater forestilling</button>
+  </div>
+</div>
+</body>
+</html>
