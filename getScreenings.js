@@ -1,4 +1,4 @@
-import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies } from "./utils.js";
+import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday } from "./utils.js";
 
 window.addEventListener("load", init());
 
@@ -8,11 +8,10 @@ function init() {
 
 export async function getAllScreenings() {
     try {
-        const screenings = await fetch(kinoUrlScreenings).then(handleHttpErrors);
-        console.log(screenings);
+        const screenings = await fetch(kinoUrlScreeningsToday).then(handleHttpErrors);
         const uniqueMovieIds = uniqueScreeningMovies(screenings);
         const movies = await getMoviesForScreening(uniqueMovieIds);
-        showMovies(movies);
+        showMovies(movies, screenings);
     } catch (err) {
         console.log(err);
     }
@@ -46,9 +45,10 @@ async function getMovieById(id) {
 }
 
 // Viser unikke film
-function showMovies(movies) {
+async function showMovies(movies, screenings) {
+    console.log(screenings);
     const wrapper = document.getElementById("movie-wrapper");
-    let nodes = movies.map((movie) => {
+    let nodes = movies.map(async (movie) => {
         const img = document.createElement("img");
         img.src = "./images/halloween-ends.jpg";
 
@@ -64,9 +64,27 @@ function showMovies(movies) {
         movieTime.classList.add("movieTime");
         movieTime.innerText = playtime + movie.runTime;
 
+        const ul = document.createElement("ul");
+        for (let i = 0; i < screenings.length; i++) {
+            if (movie.id === screenings[i].movieId) {
+                const li = document.createElement("li");
+                let string = screenings[i].screeningStartTime;
+                string = string.substring(string.indexOf("T") + 1);
+                li.innerText = string;
+                ul.appendChild(li);
+            }
+        }
+
         div.appendChild(img);
         div.appendChild(name);
         div.appendChild(movieTime);
+        div.appendChild(ul);
         wrapper.appendChild(div);
     });
 }
+
+// til at hente dato til en specifik dag
+// let date = new Date();
+//     date = date.toISOString().split("T")[0];
+//     const getDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
+//     console.log(getDate);
