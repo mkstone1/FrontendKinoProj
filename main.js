@@ -10,11 +10,11 @@ window.addEventListener("load", init());
 async function init() {
     const templateScreenings = await loadHtml("./pages/screenings/screenings.html");
     const templateScreening = await loadHtml("./pages/screening/screening.html");
-
+    adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
     window.router = router;
 
-    router
+    await router
         .on({
             //For very simple "templates", you can just insert your HTML directly like below
             "/": () => {
@@ -25,9 +25,6 @@ async function init() {
                 renderTemplate(templateScreening, "content");
                 initScreening();
             },
-        })
-        .notFound(() => {
-            renderTemplate(templateNotFound, "content");
         })
         .resolve();
 }
