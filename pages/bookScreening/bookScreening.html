@@ -1,7 +1,18 @@
 <div class="template">
-    <form action="#" method="post">
+    <h1 id="movie-name"></h1>
+    <h2 id="screening-start-time"></h2>
+    <h3 id="screening-price"></h3>
 
-        <input type="text" style="display: none" id="input-screening-id">
+
+    <form method="POST">
+        <input type="text" style="display: none" id="screeningId">
+        <select id="screeningRows" name="rows">
+
+        </select>
+        <select id="screeningSeats" name="seats">
+
+        </select>
+        <input type="submit" id="createTicket">
     </form>
 
 
