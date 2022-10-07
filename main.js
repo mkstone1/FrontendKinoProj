@@ -7,7 +7,7 @@ import { initScreening } from "./pages/screening/screening.js";
 import { initBookScreening } from "./pages/bookScreening/bookScreening.js";
 import {initEditScreening} from "./pages/editScreening/editScreening.js";
 import {initCreateScreening} from "./pages/createScreening/createScreening.js";
-import {initSearchMovies} from "pages/searchMovies/searchMovies.js";
+import {initSearchMovies} from "./pages/searchMovies/searchMovies.js";
 
 window.addEventListener("load", init());
 
