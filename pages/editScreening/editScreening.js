@@ -3,7 +3,7 @@ import {kinoUrlTheaters} from "../../utils.js";
 import {kinoUrlMovies} from "../../utils.js";
 import {handleHttpErrors} from "../../utils.js";
 
-
+export function initEditScreening(){
 window.addEventListener("load", editScreening())
 window.addEventListener("load", getAllTheaters())
 window.addEventListener("load", getAllMovies())
@@ -11,7 +11,7 @@ window.addEventListener("load", getAllScreenings())
 var selected = document.querySelector("#input-choose-screening")
 selected.addEventListener("change", function () {
     editSelection(selected.value)
-})
+})}
 
 async function editScreening() {
     document.querySelector("#btn-update-screening").onclick = updateScreening

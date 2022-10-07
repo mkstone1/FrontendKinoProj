@@ -3,10 +3,11 @@ import {kinoUrlTheaters} from "../../utils.js";
 import {kinoUrlMovies} from "../../utils.js";
 import {handleHttpErrors} from "../../utils.js";
 
-window.addEventListener("load", createScreening())
-window.addEventListener("load", getAllTheaters())
-window.addEventListener("load",getAllMovies())
-
+export function initCreateScreening() {
+    window.addEventListener("load", createScreening())
+    window.addEventListener("load", getAllTheaters())
+    window.addEventListener("load", getAllMovies())
+}
 async function createScreening(){
     document.querySelector("#btn-add-screening").onclick = makeNewScreening
 
