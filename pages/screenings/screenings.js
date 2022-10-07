@@ -2,6 +2,7 @@ import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsTo
 
 export function initScreenings() {
     getAllScreenings();
+    createButtons();
 }
 
 export async function getAllScreenings() {
@@ -44,7 +45,9 @@ async function getMovieById(id) {
 
 // Viser unikke film
 async function showMovies(movies, screenings) {
-    const wrapper = document.getElementById("content");
+    const wrapper = document.querySelector(".template");
+    const screeningsWrapper = document.querySelector("#screenings-wrapper");
+    screeningsWrapper.innerHTML = "";
     let nodes = movies.map(async (movie) => {
         const img = document.createElement("img");
         img.src = "./images/halloween-ends.jpg";
@@ -80,8 +83,28 @@ async function showMovies(movies, screenings) {
         div.appendChild(name);
         div.appendChild(movieTime);
         div.appendChild(ul);
-        wrapper.appendChild(div);
+        screeningsWrapper.appendChild(div);
+        wrapper.appendChild(screeningsWrapper);
     });
+}
+
+function createButtons() {
+    const wrapper = document.querySelector("#buttons-wrapper");
+    wrapper.innerHTML = "";
+    let today = new Date();
+
+    const listOfDates = [];
+
+    for (let i = 0; i < 8; i++) {
+        const a = document.createElement("a");
+        let newDate = new Date();
+        newDate.setDate(today.getDate() + i);
+        newDate = newDate.toISOString().split("T")[0];
+        a.innerText = newDate;
+        wrapper.appendChild(a);
+        listOfDates.push(newDate);
+    }
+    console.log(listOfDates);
 }
 
 // til at hente dato til en specifik dag

@@ -1,0 +1,27 @@
+#screenings-wrapper img {
+    width: 100%;
+}
+
+#screenings-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#buttons-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#buttons-wrapper a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    background-color: #21221f;
+    color: white;
+    width: 8vw;
+    height: 5vw;
+    cursor: pointer;
+}
