@@ -56,3 +56,6 @@ p{
     filter: invert(1);
 }
 
+#update-status{
+    display: none;
+}

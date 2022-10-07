@@ -5,12 +5,16 @@ import { adjustForMissingHash, renderTemplate, loadHtml } from "./utils.js";
 import { initScreenings } from "./pages/screenings/screenings.js";
 import { initScreening } from "./pages/screening/screening.js";
 import { initBookScreening } from "./pages/bookScreening/bookScreening.js";
+import {initEditScreening} from "./pages/editScreening/editScreening.js";
+import {initCreateScreening} from "./pages/createScreening/createScreening.js";
 
 window.addEventListener("load", init());
 
 async function init() {
     const templateScreenings = await loadHtml("./pages/screenings/screenings.html");
     const templateScreening = await loadHtml("./pages/screening/screening.html");
+    const templateEditScreening = await loadHtml("./pages/editScreening/editScreening.html");
+    const templateCreateScreening = await loadHtml("./pages/createScreening/createScreening.html")
     const templateBookScreening = await loadHtml("./pages/bookScreening/bookScreening.html")
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
@@ -22,6 +26,14 @@ async function init() {
             "/": () => {
                 renderTemplate(templateScreenings, "content");
                 initScreenings();
+            },
+            "/editScreening" : () =>{
+                renderTemplate(templateEditScreening, "content");
+                initEditScreening();
+            },
+            "/createScreening": () =>{
+              renderTemplate( templateCreateScreening, "content")
+                initCreateScreening()
             },
             "/screening": () => {
                 renderTemplate(templateScreening, "content");
