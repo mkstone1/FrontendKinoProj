@@ -1,6 +1,5 @@
 import {handleHttpErrors, kinoUrlMovies, kinoUrlScreenings, kinoUrlTheaters} from "../../utils.js";
 
-
 export function initBookScreening(){
     getObjects();
     createNewTicket();
@@ -9,8 +8,9 @@ export function initBookScreening(){
 async function getObjects(){
     const screeningId = getScreeningIdFromUrl();
     const screening = await getScreeningFromId(screeningId);
+    const theaterId = screening.theaterId;
     const movie = await getMovieFromScreeningId(screeningId)
-    const theater = await getTheaterFromScreeningId(screeningId);
+    const theater = await getTheaterFromScreeningId(theaterId);
 
     document.getElementById("screeningId").value = screeningId;
     document.getElementById("movie-name").innerText = movie.name;
