@@ -1,0 +1,10 @@
+.table-dark{
+    background: #21221f;
+}
+
+.search-movie-object {
+    flex-basis: 20%;
+    background-color: #21221f;
+    color: white;
+    margin-right: 40px;
+}
