@@ -6,6 +6,7 @@ import { initScreenings } from "./pages/screenings/screenings.js";
 import { initScreening } from "./pages/screening/screening.js";
 import {initEditScreening} from "./pages/editScreening/editScreening.js";
 import {initCreateScreening} from "./pages/createScreening/createScreening.js";
+import {initSearchMovies} from "pages/searchMovies/searchMovies.js";
 
 window.addEventListener("load", init());
 
@@ -14,6 +15,7 @@ async function init() {
     const templateScreening = await loadHtml("./pages/screening/screening.html");
     const templateEditScreening = await loadHtml("./pages/editScreening/editScreening.html");
     const templateCreateScreening = await loadHtml("./pages/createScreening/createScreening.html")
+    const templateSearchMovies = await loadHtml("./pages/searchMovies/searchMovies.html")
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
     window.router = router;
@@ -32,6 +34,10 @@ async function init() {
             "/createScreening": () =>{
               renderTemplate( templateCreateScreening, "content")
                 initCreateScreening()
+            },
+            "/searchMovies": () =>{
+                renderTemplate( templateSearchMovies, "content")
+                initSearchMovies()
             },
             "/screening": () => {
                 renderTemplate(templateScreening, "content");
