@@ -101,10 +101,26 @@ function createButtons() {
         newDate.setDate(today.getDate() + i);
         newDate = newDate.toISOString().split("T")[0];
         a.innerText = newDate;
+
+        a.setAttribute("href", "#/screeningDate=" + newDate);
+        a.addEventListener("mouseup", getScreeningsForDate);
         wrapper.appendChild(a);
         listOfDates.push(newDate);
     }
-    console.log(listOfDates);
+}
+
+async function getScreeningsForDate() {
+    const date = getDateFromUrl();
+    if (date != undefined) {
+        const screeningsForDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
+        console.log(screeningsForDate);
+    }
+}
+
+function getDateFromUrl() {
+    const splitUrl = window.location.href.split("=");
+    const screeningId = splitUrl[1];
+    return screeningId;
 }
 
 // til at hente dato til en specifik dag
