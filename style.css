@@ -2,18 +2,21 @@ body{
     width:80%;
     margin: 0 auto;
     background-color: #21221f;
+    color: white;
 
 }
 
 
-#movie-wrapper{
+
+
+#content{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-#movie-wrapper img {
+#content img {
     width: 100%;
 }
 

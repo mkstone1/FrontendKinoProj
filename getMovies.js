@@ -1,4 +1,4 @@
-import {handleHttpErrors, kinoUrlMovies, kinoUrlScreenings} from "./utils.js";
+import { handleHttpErrors, kinoUrlMovies, kinoUrlScreenings } from "./utils.js";
 
 window.addEventListener("load", init());
 
@@ -35,14 +35,13 @@ async function showMovies(movies) {
         movieTime.classList.add("movieTime");
         movieTime.innerText = playtime + movie.runTime;
 
-
-        let screenings = []
+        let screenings = [];
         screenings = await getScreeningsFromMovie(movie.screeningIds);
         const ul = document.createElement("ul");
         for (let i = 0; i < screenings.length; i++) {
             const li = document.createElement("li");
             let s = screenings[i].screeningStartTime;
-            s = s.substring(s.indexOf('T')+1);
+            s = s.substring(s.indexOf("T") + 1);
 
             li.innerText = s;
             ul.appendChild(li);
@@ -60,14 +59,11 @@ async function getScreeningFromMovie(id) {
     return screening;
 }
 
-async function getScreeningsFromMovie(screeningIds){
+async function getScreeningsFromMovie(screeningIds) {
     const screenings = [];
     for (let i = 0; i < screeningIds.length; i++) {
-        const screening = await (getScreeningFromMovie(screeningIds[i]));
+        const screening = await getScreeningFromMovie(screeningIds[i]);
         screenings.push(screening);
     }
     return screenings;
 }
-
-
-
