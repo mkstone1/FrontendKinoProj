@@ -38,15 +38,7 @@ h1{
     font-weight: bold;
     border-radius: 5px;
 }
-#btn-update-screening{
-    height: 30px;
-    background-color: #21221f;
-    color: white;
-    border: 2px solid white;
-    font-size: medium;
-    font-weight: bold;
-    border-radius: 5px;
-}
+
 #btn-update-screening:hover{
     background-color: #4a4d49;
 }

@@ -18,7 +18,7 @@ async function editScreening() {
 
     async function updateScreening() {
         const editScreening = {}
-        editScreening.theaterName = document.querySelector("#input-choose-theater").value
+        editScreening.theaterId = document.querySelector("#input-choose-theater").value
         editScreening.movieId = document.querySelector("#input-choose-movie").value
         editScreening.screeningStartTime = document.querySelector("#input-choose-start-time").value + ":00"
         editScreening.price = document.querySelector("#input-ticket-price").value
@@ -56,25 +56,40 @@ async function getAllMovies() {
 
 async function getAllScreenings() {
     const screenings = await fetch(kinoUrlScreenings).then(handleHttpErrors)
-    screeningDropDown(screenings, "input-choose-screening")
+    const theaters = await fetch(kinoUrlTheaters).then(handleHttpErrors)
+    screeningDropDown(screenings,theaters, "input-choose-screening")
 }
 
 function dropDownTheater(data, elementId){
     const theaterArray = data.map(data =>
         `
-        <option value="${data.name}">
+        <option value="${data.id}">
         ${data.name}
         </option>`)
     const theaterDropDown= document.getElementById(elementId).innerHTML = theaterArray
 }
 
 
-function screeningDropDown(data, elementId) {
-    const dataArray = data.map(data =>
-        `<option value="${data.id}" >
-        ${data.screeningStartTime} ${data.theaterName}
+function screeningDropDown(screeningData, theaterData, elementId) {
+    console.log(screeningData)
+    console.log(theaterData)
+    for (let i = 0 ; i< screeningData.length ; i++){
+        for(let j = 0 ; j < theaterData.length; j++){
+            console.log("i = " +i)
+            console.log("j = "+j)
+        if(screeningData[i].theaterId == theaterData[j].id){
+
+            screeningData[i].theaterName = theaterData[j].name
+            console.log(screeningData[i].theaterName)
+        }
+        }
+    }
+    const dataArray = screeningData.map(screeningData =>
+        `<option value="${screeningData.id}" >
+        ${screeningData.screeningStartTime} ${screeningData.theaterName}
         </option>`)
     const dataDropDown = document.getElementById(elementId).innerHTML = dataArray
+
 }
 
 function dropDownData(data, elementId) {
@@ -116,10 +131,10 @@ async function setSelectedTheater(data, id) {
     var dataArray ="";
     for(let i = 0; i<data.length; i++){
         if(data[i].name == id){
-            dataArray += "<option value=\"" + data[i].name +"\" selected = \"selected\" >"+data[i].name+ "</option>"
+            dataArray += "<option value=\"" + data[i].id +"\" selected = \"selected\" >"+data[i].name+ "</option>"
         }
         else{
-            dataArray +="<option value=\"" + data[i].name+"\">"+data[i].name+" </option>"
+            dataArray +="<option value=\"" + data[i].id+"\">"+data[i].name+" </option>"
         }
     }
     document.getElementById("input-choose-theater").innerHTML = dataArray
