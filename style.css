@@ -3,21 +3,20 @@ body{
     margin: 0 auto;
     background-color: #21221f;
     color: white;
+    font-family: sans-serif;
 
 }
 
 
+#screenings-wrapper img {
+    width: 100%;
+}
 
-
-#screenings-wrapper{
+#screenings-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-#screenings-wrapper img {
-    width: 100%;
 }
 
 .movie-object {
@@ -48,3 +47,54 @@ body{
     cursor: pointer;
 }
 
+p{
+    color: white;
+}
+
+
+.input-divs{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main-div{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: space-around;
+
+}
+
+.selects{
+    height: 30px;
+    background-color: #21221f;
+    color: white;
+    border: 2px solid white;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 5px;
+}
+#btn-add-screening{
+    height: 30px;
+    background-color: #21221f;
+    color: white;
+    border: 2px solid white;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 5px;
+}
+#btn-add-screening:hover{
+    background-color: #4a4d49;
+}
+
+.select-headers{
+    color: #999;
+}
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+#update-status{
+    display: none;
+}
