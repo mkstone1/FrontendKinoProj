@@ -30,13 +30,23 @@ async function editScreening() {
         options.headers = {"Content-type": "application/json"}
         options.body = JSON.stringify(editScreening)
         const updateScreening = await fetch(URL, options).then(handleHttpErrors)
+        const updateStatus = document.querySelector("#update-status")
+        updateStatus.style.display ="flex"
+        updateStatus.style.justifyContent = "center"
+        if(updateScreening){
+            document.querySelector("#update-status").innerHTML = "show successfully updated"
+
+        }
+        else{
+            document.querySelector("#update-status").innerHTML = "update failed"
+        }
     }
 }
 
 
-async function getAllTheaters() {
+async function getAllTheaters(){
     const theaters = await fetch(kinoUrlTheaters).then(handleHttpErrors)
-    dropDownTheater(theaters)
+    dropDownTheater(theaters, "input-choose-theater")
 }
 
 async function getAllMovies() {
@@ -49,14 +59,13 @@ async function getAllScreenings() {
     screeningDropDown(screenings, "input-choose-screening")
 }
 
-function dropDownTheater(data){
+function dropDownTheater(data, elementId){
     const theaterArray = data.map(data =>
         `
         <option value="${data.name}">
         ${data.name}
         </option>`)
-    console.log(theaterArray)
-    const theaterDropDown= document.getElementById("input-choose-theater").innerHTML = theaterArray
+    const theaterDropDown= document.getElementById(elementId).innerHTML = theaterArray
 }
 
 
@@ -107,10 +116,10 @@ async function setSelectedTheater(data, id) {
     var dataArray ="";
     for(let i = 0; i<data.length; i++){
         if(data[i].name == id){
-            dataArray += "<option value=\"" + data[i].id +"\" selected = \"selected\" >"+data[i].name+ "</option>"
+            dataArray += "<option value=\"" + data[i].name +"\" selected = \"selected\" >"+data[i].name+ "</option>"
         }
         else{
-            dataArray +="<option value=\"" + data[i].id+"\">"+data[i].name+" </option>"
+            dataArray +="<option value=\"" + data[i].name+"\">"+data[i].name+" </option>"
         }
     }
     document.getElementById("input-choose-theater").innerHTML = dataArray
