@@ -35,7 +35,6 @@ async function editScreening() {
         updateStatus.style.justifyContent = "center"
         if(updateScreening){
             document.querySelector("#update-status").innerHTML = "show successfully updated"
-
         }
         else{
             document.querySelector("#update-status").innerHTML = "update failed"
@@ -71,16 +70,10 @@ function dropDownTheater(data, elementId){
 
 
 function screeningDropDown(screeningData, theaterData, elementId) {
-    console.log(screeningData)
-    console.log(theaterData)
     for (let i = 0 ; i< screeningData.length ; i++){
         for(let j = 0 ; j < theaterData.length; j++){
-            console.log("i = " +i)
-            console.log("j = "+j)
         if(screeningData[i].theaterId == theaterData[j].id){
-
             screeningData[i].theaterName = theaterData[j].name
-            console.log(screeningData[i].theaterName)
         }
         }
     }
