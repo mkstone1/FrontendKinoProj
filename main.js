@@ -4,6 +4,7 @@ import { adjustForMissingHash, renderTemplate, loadHtml } from "./utils.js";
 
 import { initScreenings } from "./pages/screenings/screenings.js";
 import { initScreening } from "./pages/screening/screening.js";
+import { initBookScreening } from "./pages/bookScreening/bookScreening.js";
 import {initEditScreening} from "./pages/editScreening/editScreening.js";
 import {initCreateScreening} from "./pages/createScreening/createScreening.js";
 import {initSearchMovies} from "pages/searchMovies/searchMovies.js";
@@ -15,6 +16,7 @@ async function init() {
     const templateScreening = await loadHtml("./pages/screening/screening.html");
     const templateEditScreening = await loadHtml("./pages/editScreening/editScreening.html");
     const templateCreateScreening = await loadHtml("./pages/createScreening/createScreening.html")
+    const templateBookScreening = await loadHtml("./pages/bookScreening/bookScreening.html")
     const templateSearchMovies = await loadHtml("./pages/searchMovies/searchMovies.html")
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
@@ -43,6 +45,11 @@ async function init() {
                 renderTemplate(templateScreening, "content");
                 initScreening();
             },
+            "/bookScreening": () => {
+                renderTemplate(templateBookScreening, "content")
+                initBookScreening();
+
+            }
         })
         .resolve();
 }
