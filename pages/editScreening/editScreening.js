@@ -3,84 +3,128 @@ import {kinoUrlTheaters} from "../../utils.js";
 import {kinoUrlMovies} from "../../utils.js";
 import {handleHttpErrors} from "../../utils.js";
 
+
 window.addEventListener("load", editScreening())
 window.addEventListener("load", getAllTheaters())
-window.addEventListener("load",getAllMovies())
-window.addEventListener("load",getAllScreenings())
+window.addEventListener("load", getAllMovies())
+window.addEventListener("load", getAllScreenings())
+var selected = document.querySelector("#input-choose-screening")
+selected.addEventListener("change", function () {
+    editSelection(selected.value)
+})
 
-async function editScreening(){
+async function editScreening() {
     document.querySelector("#btn-update-screening").onclick = updateScreening
 
-    async function updateScreening(){
+    async function updateScreening() {
         const editScreening = {}
+        editScreening.theaterName = document.querySelector("#input-choose-theater").value
+        editScreening.movieId = document.querySelector("#input-choose-movie").value
+        editScreening.screeningStartTime = document.querySelector("#input-choose-start-time").value + ":00"
+        editScreening.price = document.querySelector("#input-ticket-price").value
+
+        const URL = kinoUrlScreenings + document.querySelector("#input-choose-screening").value
 
         const options = {}
-        options.method = "PUT"
+        options.method = "PATCH"
         options.headers = {"Content-type": "application/json"}
         options.body = JSON.stringify(editScreening)
-        const updateScreening = await fetch(kinoUrlScreenings, options).then(handleHttpErrors)
+        const updateScreening = await fetch(URL, options).then(handleHttpErrors)
     }
 }
 
-async function getScreening(id) {
-    const screening = await fetch(kinoUrlScreenings + id).then(handleHttpErrors);
-    return screening;
-}
 
-async function getScreenings(screeningIds){
-    const screenings = [];
-    for (let i = 0; i < screeningIds.length; i++) {
-        const screening = await (getScreeningFromMovie(screeningIds[i]));
-        screenings.push(screening);
-    }
-    return screenings;
-}
-
-async function getAllTheaters(){
+async function getAllTheaters() {
     const theaters = await fetch(kinoUrlTheaters).then(handleHttpErrors)
-    dropDownData(theaters, "input-choose-theater")
+    dropDownTheater(theaters)
 }
 
-async function getAllMovies(){
+async function getAllMovies() {
     const movies = await fetch(kinoUrlMovies).then(handleHttpErrors)
     dropDownData(movies, "input-choose-movie")
 }
 
-async function getAllScreenings(){
+async function getAllScreenings() {
     const screenings = await fetch(kinoUrlScreenings).then(handleHttpErrors)
     screeningDropDown(screenings, "input-choose-screening")
 }
 
-function screeningDropDown(data, elementId){
-    const dataArray = data.map(data =>
-        `<option value="${data.id}">
-        ${data.screeningStartTime} ${data.theaterName}
+function dropDownTheater(data){
+    const theaterArray = data.map(data =>
+        `
+        <option value="${data.name}">
+        ${data.name}
         </option>`)
-    const dataDropDown= document.getElementById(elementId).innerHTML = dataArray
+    console.log(theaterArray)
+    const theaterDropDown= document.getElementById("input-choose-theater").innerHTML = theaterArray
 }
 
-function dropDownData(data, elementId){
+
+function screeningDropDown(data, elementId) {
+    const dataArray = data.map(data =>
+        `<option value="${data.id}" >
+        ${data.screeningStartTime} ${data.theaterName}
+        </option>`)
+    const dataDropDown = document.getElementById(elementId).innerHTML = dataArray
+}
+
+function dropDownData(data, elementId) {
     const dataArray = data.map(data =>
         `<option value="${data.id}">
         ${data.name}
         </option>`)
-    const dataDropdown= document.getElementById(elementId).innerHTML = dataArray
+    const dataDropdown = document.getElementById(elementId).innerHTML = dataArray
 }
 
-/*async function createScreening(){
+async function editSelection(screeningId) {
+    const movies = await fetch(kinoUrlMovies).then(handleHttpErrors)
+    const theater = await fetch(kinoUrlTheaters).then(handleHttpErrors)
 
-    async function makeNewScreening(){
+    const selectedScreening = await getScreeningById(screeningId).then(data =>{
+        setSelectedMovie(movies,data.movieId)
+        setSelectedTheater(theater,data.theaterName)
+        setSelectedDateTime(data.screeningStartTime)
+        setSelectedPrice(data.price)
+        })
 
-        const newScreening = {}
-        newScreening.theaterId = document.querySelector("#input-choose-theater").value
-        newScreening.movieId = document.querySelector("#input-choose-movie").value
-        newScreening.screeningStartTime = document.querySelector("#input-choose-start-time").value + ":00"
-        newScreening.price = document.querySelector("#input-ticket-price").value
+}
 
-        const options = {}
-        options.method = "POST"
-        options.headers = {"Content-type": "application/json"}
-        options.body = JSON.stringify(newScreening)
-        const addScreening = await fetch(kinoUrlScreenings, options).then(handleHttpErrors)
+async function setSelectedMovie(data, id) {
+    var dataArray ="";
+    for(let i = 0; i<data.length; i++){
+        if(data[i].id == id){
+            dataArray += "<option value=\"" + data[i].id +"\" selected = \"selected\" >"+data[i].name+ "</option>"
+        }
+        else{
+            dataArray +="<option value=\"" + data[i].id+"\">"+data[i].name+" </option>"
+        }
+
     }
-}*/
+    document.getElementById("input-choose-movie").innerHTML = dataArray
+}
+
+async function setSelectedTheater(data, id) {
+    var dataArray ="";
+    for(let i = 0; i<data.length; i++){
+        if(data[i].name == id){
+            dataArray += "<option value=\"" + data[i].id +"\" selected = \"selected\" >"+data[i].name+ "</option>"
+        }
+        else{
+            dataArray +="<option value=\"" + data[i].id+"\">"+data[i].name+" </option>"
+        }
+    }
+    document.getElementById("input-choose-theater").innerHTML = dataArray
+}
+
+async function setSelectedDateTime(data) {
+    document.getElementById("input-choose-start-time").value = data
+}
+async function setSelectedPrice(data) {
+    document.getElementById("input-ticket-price").value = data
+}
+
+
+async function getScreeningById(id) {
+    const screening = await fetch(kinoUrlScreenings + id).then(handleHttpErrors);
+    return screening;
+}

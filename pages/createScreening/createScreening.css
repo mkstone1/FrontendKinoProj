@@ -12,9 +12,6 @@ p{
     color: white;
 }
 
-h1{
-    color: white;
-}
 
 .input-divs{
     display: flex;
@@ -25,7 +22,7 @@ h1{
 .main-div{
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: auto;
     justify-content: space-around;
 
 }
