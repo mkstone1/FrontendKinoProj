@@ -1,37 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Screening</title>
-    <script src="createScreening.js" type="module"></script>
-    <link rel="stylesheet" href="createScreening.css" >
-</head>
-<body>
-<div class ="main-div">
-    <h1 class="select-headers">Opret en forestilling</h1>
-    <div class="input-divs">
-        <h2 class ="select-headers">Vælg sal</h2>
-        <select id="input-choose-theater"class="selects"></select>
-    </div>
-    <div class="input-divs">
-        <h2 class ="select-headers">Vælg film</h2>
-        <select id="input-choose-movie" class="selects"></select>
-    </div>
-    <div class="input-divs">
-        <h2 class ="select-headers">Vælg start tid</h2>
-        <input id="input-choose-start-time" type="datetime-local" class="selects">
-    </div>
-    <div class="input-divs">
-        <h2 class ="select-headers">Pris</h2>
-        <input id="input-ticket-price" class="selects">
-    </div>
-    <div class="input-divs">
-        <p></p>
-        <button id="btn-add-screening" >Tilføj forestilling</button>
-    </div>
-    <div class="input-divs">
-        <p id="update-status" class="selects" > </p>
+<div class="template">
+    <div class="main-div">
+        <h1 class="select-headers">Opret en forestilling</h1>
+        <div class="input-divs">
+            <h2 class="select-headers">Vælg sal</h2>
+            <select id="input-choose-theater" class="selects"></select>
+        </div>
+        <div class="input-divs">
+            <h2 class="select-headers">Vælg film</h2>
+            <select id="input-choose-movie" class="selects"></select>
+        </div>
+        <div class="input-divs">
+            <h2 class="select-headers">Vælg start tid</h2>
+            <input id="input-choose-start-time" type="datetime-local" class="selects">
+        </div>
+        <div class="input-divs">
+            <h2 class="select-headers">Pris</h2>
+            <input id="input-ticket-price" class="selects">
+        </div>
+        <div class="input-divs">
+            <p></p>
+            <button id="btn-add-screening">Tilføj forestilling</button>
+        </div>
+        <div class="input-divs">
+            <p id="update-status" class="selects"></p>
+        </div>
     </div>
 </div>
-</body>
-</html>
