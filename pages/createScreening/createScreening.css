@@ -9,7 +9,7 @@ body{
 }
 
 p{
-    color: white;
+        color: white;
 }
 
 
@@ -55,3 +55,4 @@ p{
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
+
