@@ -29,6 +29,8 @@ function displayScreening(screening, movie) {
 
     const time = screening.screeningStartTime.split("T");
 
+    document.querySelector(".book-screening").setAttribute("href", "#/bookScreening?screeningId=" + screening.id)
+
     movieName.innerHTML = movie.name;
     screeningTime.innerHTML = time[1];
 }
