@@ -29,9 +29,8 @@ function makeTableRows(movies){
 
 function filterMovies(movies) {
     document.getElementById("btn-filter-movies").onclick = () => {
-        console.log("test")
-        const searchStr = document.getElementById("filter-movies").value
-        const filteredMovies = movies.filter(movie => movie.name.includes(searchStr))
+        const searchStr = document.getElementById("filter-movies").value.toLowerCase()
+        const filteredMovies = movies.filter(movie => movie.name.toLowerCase().includes(searchStr))
         makeTableRows(filteredMovies)
     }
 }
