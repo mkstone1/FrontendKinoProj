@@ -103,25 +103,36 @@ function createButtons() {
         a.innerText = newDate;
 
         a.setAttribute("href", "#/screeningDate=" + newDate);
-        a.addEventListener("mouseup", getScreeningsForDate);
+        // a.addEventListener("mouseup", getScreeningsForDate);
+        a.addEventListener("click", (e) => {
+            const date = e.target.innerText;
+            getScreeningsForDate(date);
+        });
         wrapper.appendChild(a);
         listOfDates.push(newDate);
     }
 }
 
-async function getScreeningsForDate() {
-    const date = getDateFromUrl();
+async function getScreeningsForDate(date) {
     if (date != undefined) {
-        const screeningsForDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
-        console.log(screeningsForDate);
+        try {
+            const screeningsForDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
+            console.log(screeningsForDate);
+
+            const uniqueMovieIds = uniqueScreeningMovies(screeningsForDate);
+            const movies = await getMoviesForScreening(uniqueMovieIds);
+            showMovies(movies, screeningsForDate);
+        } catch (err) {
+            console.log(err);
+        }
     }
 }
 
-function getDateFromUrl() {
-    const splitUrl = window.location.href.split("=");
-    const screeningId = splitUrl[1];
-    return screeningId;
-}
+// function getDateFromUrl() {
+//     const splitUrl = window.location.href.split("=");
+//     const screeningId = splitUrl[1];
+//     return screeningId;
+// }
 
 // til at hente dato til en specifik dag
 // let date = new Date();
