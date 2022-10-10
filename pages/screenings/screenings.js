@@ -7,7 +7,8 @@ export function initScreenings() {
 
 export async function getAllScreenings() {
     try {
-        const screenings = await fetch(kinoUrlScreeningsToday).then(handleHttpErrors);
+        const date = getDateFromUrl();
+        const screenings = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
         const uniqueMovieIds = uniqueScreeningMovies(screenings);
         const movies = await getMoviesForScreening(uniqueMovieIds);
         showMovies(movies, screenings);
@@ -102,7 +103,7 @@ function createButtons() {
         newDate = newDate.toISOString().split("T")[0];
         a.innerText = newDate;
 
-        a.setAttribute("href", "#/screeningDate=" + newDate);
+        a.setAttribute("href", "#/?screeningDate=" + newDate);
         // a.addEventListener("mouseup", getScreeningsForDate);
         a.addEventListener("click", (e) => {
             const date = e.target.innerText;
@@ -126,11 +127,11 @@ async function getScreeningsForDate(date) {
     }
 }
 
-// function getDateFromUrl() {
-//     const splitUrl = window.location.href.split("=");
-//     const screeningId = splitUrl[1];
-//     return screeningId;
-// }
+function getDateFromUrl() {
+    const splitUrl = window.location.href.split("=");
+    const screeningId = splitUrl[1];
+    return screeningId;
+}
 
 // til at hente dato til en specifik dag
 // let date = new Date();
