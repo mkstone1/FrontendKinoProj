@@ -8,7 +8,12 @@ export function initScreenings() {
 export async function getAllScreenings() {
     try {
         const date = getDateFromUrl();
-        const screenings = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
+        let screenings = [];
+        if (date == undefined) {
+            screenings = await fetch(kinoUrlScreeningsToday).then(handleHttpErrors);
+        } else {
+            screenings = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
+        }
         const uniqueMovieIds = uniqueScreeningMovies(screenings);
         const movies = await getMoviesForScreening(uniqueMovieIds);
         showMovies(movies, screenings);
