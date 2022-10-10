@@ -70,21 +70,33 @@ function getMovieIdFromUrl() {
 }
 
 async function getScreeningsForMovie(movie, allScreenings, date){
+    var allScreeningsForLink = []
     document.getElementById("screenings-for-movie").innerText = ""
     const screeningsForMovie = allScreenings.filter(screening => screening.movieId == movie.id)
     .map(screening => screening.screeningStartTime.substring(screening.screeningStartTime.split("T")))
     .filter(screening => screening.substring(0,screening.indexOf("T"))==date)
 
-
+    for(let i = 0 ; i < allScreenings.length ; i++){
+        for(let j = 0 ; j< screeningsForMovie.length; j++){
+            if(allScreenings[i].screeningStartTime == screeningsForMovie[j] &&allScreenings[i].movieId == movie.id ){
+                allScreeningsForLink.push(allScreenings[i])
+                break
+            }
+        }
+    }
+    
     const divForScreenings = document.getElementById("screenings-for-movie")
     
     for (let i = 0; i < screeningsForMovie.length; i++) {
+        const form = document.createElement("FORM")
+        form.action = "/#/screening?screeningId=" + allScreeningsForLink[i].id
     
             const button = document.createElement("button");
             button.className = "selects"
             let string = screeningsForMovie[i].substring(screeningsForMovie[i].indexOf("T")+1)
             button.textContent = string;
-            divForScreenings.appendChild(button)
+            form.appendChild(button)
+            divForScreenings.appendChild(form)
     
     }
    
