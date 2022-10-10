@@ -1,0 +1,15 @@
+.top-div-movies{
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-bottom: 50px;
+}
+
+#movie-schedule{
+    display: flex;
+    flex-direction: column;
+}
+
+#movie-select-screening-date{
+    margin-bottom: 50px;
+}

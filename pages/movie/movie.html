@@ -1,24 +1,32 @@
 <div class="template">
-    <h1>Movie title</h1>
-    <h1 id ="movie-title"> </h1>
+    <div class ="main-div">
+    <h1 id ="movie-title" class ="select-headers"> </h1>
+
+    
+
+    <div class="top-div-movies">
     <div id="movie-image"></div>
-
     <div id="movie-schedule">
+        
         <p>Vælg dato</p>
-        <select id="movie-select-screening-date"></select>
+        <select id="movie-select-screening-date" class="selects"></select>
+        <div id="screenings-for-movie"></div>
     </div>
-
-    <div id="screenings-for-movie"></div>
+    </div>
+ 
 
     <div id="movie-description"></div>
 
-    <div id="movie-info">
+    <div id="movie-info" class="movie-info">
     
-        <p>Længde</p>
-        <label id="movie-runtime"></label>
-        <p>Genre</p>
-        <label id="movie-genre"></label>
-        <p>Minimums alder</p>
-        <label id="movie-min-age"></label>
+        <h2 class = "select-headers">Længde</h2>
+        <p id="movie-runtime"></p>
+        <h2 class = "select-headers">Genre</h2>
+        <p id="movie-genre"></p>
+        <h2 class = "select-headers">Minimums alder</h2>
+        <p id="movie-min-age"></p>
+        <h2 class="select-headers">Skuespillere</h2>
+        <p id="movie-actors"></p>
     </div>
+</div>
 </div>
