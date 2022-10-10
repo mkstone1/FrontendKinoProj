@@ -1,21 +1,22 @@
 import {handleHttpErrors, kinoUrlMovies} from "../../utils.js";
 
-export function initSearchMovies(){
+export function initSearchMovies() {
     window.addEventListener("load", getAllMovies())
 }
 
 
 async function getAllMovies() {
-    console.log("test")
     const movies = await fetch(kinoUrlMovies).then(handleHttpErrors)
     makeTableRows(movies)
     filterMovies(movies)
     clearFilter(movies)
+    makeTableRowsLinks(movies)
 }
 
-function makeTableRows(movies){
+function makeTableRows(movies) {
+
     const tableRows = movies.map(movie => `
-            <tr>
+            <tr id = movie-id${movie.id} class="selects">
                 <td>${movie.name}</td>
                 <td>${movie.genre}</td>
                 <td>${movie.minAge}</td>
@@ -25,6 +26,18 @@ function makeTableRows(movies){
                 </tr>
             `).join("")
     document.getElementById("tbody").innerHTML = tableRows
+}
+
+function makeTableRowsLinks(movies) {
+    const link = "#/movies?movieId="
+    const movieAmount = movies.length
+    for (let i = 0; i < movieAmount; i++) {
+        document.getElementById("movie-id" + movies[i].id).onclick = (event) =>{
+            location.href = link+i
+        }
+
+    }
+
 }
 
 function filterMovies(movies) {
