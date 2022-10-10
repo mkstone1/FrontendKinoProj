@@ -117,8 +117,6 @@ async function getScreeningsForDate(date) {
     if (date != undefined) {
         try {
             const screeningsForDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
-            console.log(screeningsForDate);
-
             const uniqueMovieIds = uniqueScreeningMovies(screeningsForDate);
             const movies = await getMoviesForScreening(uniqueMovieIds);
             showMovies(movies, screeningsForDate);
