@@ -33,11 +33,10 @@ function makeTableRowsLinks(movies) {
     const movieAmount = movies.length
     for (let i = 0; i < movieAmount; i++) {
         document.getElementById("movie-id" + movies[i].id).onclick = (event) =>{
-            location.href = link+i
+            var j = i +1
+            location.href = link+j
         }
-
     }
-
 }
 
 function filterMovies(movies) {

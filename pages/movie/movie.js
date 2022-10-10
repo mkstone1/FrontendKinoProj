@@ -23,6 +23,7 @@ function createMovieInfo(movie){
     document.querySelector("#movie-runtime").innerText = movie.runTime
     document.querySelector("#movie-genre").innerText = movie.genre
     document.querySelector("#movie-min-age").innerText = movie.minAge
+    document.querySelector("#movie-title").innerText = movie.name
 
 }
 
@@ -48,7 +49,6 @@ function createDateSelect() {
 
 function getMovieIdFromUrl() {
     const splitUrl = window.location.href.split("=");
-    console.log(splitUrl)
     const movieId = splitUrl[1];
     return movieId;
 }
