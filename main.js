@@ -9,6 +9,7 @@ import { initEditScreening } from "./pages/editScreening/editScreening.js";
 import { initCreateScreening } from "./pages/createScreening/createScreening.js";
 import { initSearchMovies } from "./pages/searchMovies/searchMovies.js";
 import { initMovie} from "./pages/movie/movie.js";
+import { initCreateMovie} from "./pages/createMovie/createMovie.js";
 
 window.addEventListener("load", init());
 
@@ -20,6 +21,7 @@ async function init() {
     const templateBookScreening = await loadHtml("./pages/bookScreening/bookScreening.html");
     const templateSearchMovies = await loadHtml("./pages/searchMovies/searchMovies.html");
     const templateMovie = await loadHtml("./pages/movie/movie.html")
+    const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html")
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
     window.router = router;
@@ -54,6 +56,10 @@ async function init() {
             "/bookScreening": () => {
                 renderTemplate(templateBookScreening, "content");
                 initBookScreening();
+            },
+            "/createMovie": () => {
+                renderTemplate(templateCreateMovie, "content");
+                initCreateMovie();
             },
         })
         .resolve();
