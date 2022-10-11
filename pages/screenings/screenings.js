@@ -117,27 +117,11 @@ function createButtons() {
         a.innerText = newDate;
 
         a.setAttribute("href", "#/?screeningDate=" + newDate);
-        // a.addEventListener("mouseup", getScreeningsForDate);
         a.addEventListener("click", (e) => {
             const date = e.target.innerText;
-            e.target.style.color = "red";
-            // getScreeningsForDate(date);
         });
         wrapper.appendChild(a);
         listOfDates.push(newDate);
-    }
-}
-
-async function getScreeningsForDate(date) {
-    if (date != undefined) {
-        try {
-            const screeningsForDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
-            const uniqueMovieIds = uniqueScreeningMovies(screeningsForDate);
-            const movies = await getMoviesForScreening(uniqueMovieIds);
-            showMovies(movies, screeningsForDate);
-        } catch (err) {
-            console.log(err);
-        }
     }
 }
 
@@ -161,9 +145,3 @@ function activeLink() {
         }
     }
 }
-
-// til at hente dato til en specifik dag
-// let date = new Date();
-//     date = date.toISOString().split("T")[0];
-//     const getDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
-//     console.log(getDate);
