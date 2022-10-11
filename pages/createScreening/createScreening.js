@@ -23,17 +23,28 @@ async function createScreening(){
         options.headers = {"Content-type": "application/json"}
         options.body = JSON.stringify(newScreening)
         const addScreening = await fetch(kinoUrlScreenings, options).then(handleHttpErrors)
-        const updateStatus = document.querySelector("#update-status")
-        updateStatus.style.display ="flex"
-        updateStatus.style.justifyContent = "center"
-        if(addScreening){
-            document.querySelector("#update-status").innerHTML = "Forestilling oprettet"
+        setErrorMessage(addScreening)
 
-        }
-        else{
-            document.querySelector("#update-status").innerHTML = "Fejl ved oprettelse"
-        }
+       
     }
+}
+
+function setErrorMessage(response){
+    const updateStatus = document.querySelector("#update-status")
+    updateStatus.style.display ="flex"
+    updateStatus.style.justifyContent = "center"
+    console.log(response)
+    const errorMessage = response.message 
+
+    console.log(errorMessage)
+    if(response == true){
+        document.querySelector("#update-status").innerHTML = "Forestilling oprettet"
+
+    }
+    else{
+        document.querySelector("#update-status").innerHTML = errorMessage
+    }
+
 }
 
 async function getAllTheaters(){

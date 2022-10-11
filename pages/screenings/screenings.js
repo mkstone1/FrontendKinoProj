@@ -3,6 +3,7 @@ import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsTo
 export function initScreenings() {
     getAllScreenings();
     createButtons();
+    activeLink();
 }
 
 export async function getAllScreenings() {
@@ -54,6 +55,13 @@ async function showMovies(movies, screenings) {
     const wrapper = document.querySelector(".template");
     const screeningsWrapper = document.querySelector("#screenings-wrapper");
     screeningsWrapper.innerHTML = "";
+
+    if (screenings.length == 0) {
+        const h2 = document.createElement("h2");
+        h2.innerText = "Der er ingen forestillinger denne dato.";
+        screeningsWrapper.appendChild(h2);
+    }
+
     let nodes = movies.map(async (movie) => {
         const img = document.createElement("img");
         img.src = "./images/halloween-ends.jpg";
@@ -74,6 +82,7 @@ async function showMovies(movies, screenings) {
         for (let i = 0; i < screenings.length; i++) {
             if (movie.id === screenings[i].movieId) {
                 const a = document.createElement("a");
+                a.className = "selects"
                 const li = document.createElement("li");
                 let string = screenings[i].screeningStartTime;
                 string = string.substring(string.indexOf("T") + 1);
@@ -107,28 +116,13 @@ function createButtons() {
         newDate.setDate(today.getDate() + i);
         newDate = newDate.toISOString().split("T")[0];
         a.innerText = newDate;
-
+        a.className = "selects"
         a.setAttribute("href", "#/?screeningDate=" + newDate);
-        // a.addEventListener("mouseup", getScreeningsForDate);
         a.addEventListener("click", (e) => {
             const date = e.target.innerText;
-            getScreeningsForDate(date);
         });
         wrapper.appendChild(a);
         listOfDates.push(newDate);
-    }
-}
-
-async function getScreeningsForDate(date) {
-    if (date != undefined) {
-        try {
-            const screeningsForDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
-            const uniqueMovieIds = uniqueScreeningMovies(screeningsForDate);
-            const movies = await getMoviesForScreening(uniqueMovieIds);
-            showMovies(movies, screeningsForDate);
-        } catch (err) {
-            console.log(err);
-        }
     }
 }
 
@@ -138,8 +132,17 @@ function getDateFromUrl() {
     return screeningId;
 }
 
-// til at hente dato til en specifik dag
-// let date = new Date();
-//     date = date.toISOString().split("T")[0];
-//     const getDate = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
-//     console.log(getDate);
+function activeLink() {
+    const buttons = document.querySelector("#buttons-wrapper").querySelectorAll("a");
+    const date = getDateFromUrl();
+
+    if (date == undefined) {
+        buttons[0].style.color = "#b9014e";
+    }
+
+    for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].innerHTML == date) {
+            buttons[i].style.color = "#b9014e";
+        }
+    }
+}

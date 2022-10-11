@@ -6,12 +6,18 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center;   
+}
+
+
+#screenings-wrapper ul{
+   list-style-type:none ;
 }
 
 #buttons-wrapper {
     display: flex;
     justify-content: center;
+    
 }
 
 #buttons-wrapper a {
