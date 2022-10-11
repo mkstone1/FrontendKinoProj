@@ -37,7 +37,7 @@ function setErrorMessage(response){
     const errorMessage = response.message 
 
     console.log(errorMessage)
-    if(response.ok){
+    if(response == true){
         document.querySelector("#update-status").innerHTML = "Forestilling oprettet"
 
     }

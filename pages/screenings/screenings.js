@@ -82,6 +82,7 @@ async function showMovies(movies, screenings) {
         for (let i = 0; i < screenings.length; i++) {
             if (movie.id === screenings[i].movieId) {
                 const a = document.createElement("a");
+                a.className = "selects"
                 const li = document.createElement("li");
                 let string = screenings[i].screeningStartTime;
                 string = string.substring(string.indexOf("T") + 1);
@@ -115,7 +116,7 @@ function createButtons() {
         newDate.setDate(today.getDate() + i);
         newDate = newDate.toISOString().split("T")[0];
         a.innerText = newDate;
-
+        a.className = "selects"
         a.setAttribute("href", "#/?screeningDate=" + newDate);
         a.addEventListener("click", (e) => {
             const date = e.target.innerText;
