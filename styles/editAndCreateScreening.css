@@ -20,6 +20,7 @@
     font-size: medium;
     font-weight: bold;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .selects:hover{
