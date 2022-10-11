@@ -25,6 +25,20 @@
     margin: 4px;
 }
 
+.text-input{
+    height: 30px;
+    background-color: #21221f;
+    color: white;
+    border: 2px solid white;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 5px;
+
+}
+.text-input:hover{
+    background-color: #4a4d49;
+}
+
 .error-box{
         height: 30px;
         background-color: #21221f;
