@@ -33,6 +33,7 @@ function makeTableRowsLinks(movies) {
     const movieAmount = movies.length
     for (let i = 0; i < movieAmount; i++) {
         document.getElementById("movie-id" + movies[i].id).onclick = (event) =>{
+            console.log("test")
             var j = i +1
             location.href = link+j
         }
@@ -44,11 +45,13 @@ function filterMovies(movies) {
         const searchStr = document.getElementById("filter-movies").value.toLowerCase()
         const filteredMovies = movies.filter(movie => movie.name.toLowerCase().includes(searchStr))
         makeTableRows(filteredMovies)
+        makeTableRowsLinks(filteredMovies)
     }
 }
 
 function clearFilter(movies) {
     document.getElementById("btn-clear-filter").onclick = () => {
         makeTableRows(movies)
+        makeTableRowsLinks(movies)
     }
 }
