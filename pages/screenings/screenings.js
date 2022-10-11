@@ -8,6 +8,7 @@ export function initScreenings() {
 export async function getAllScreenings() {
     try {
         const date = getDateFromUrl();
+        console.log(date);
         let screenings = [];
         if (date == undefined) {
             screenings = await fetch(kinoUrlScreeningsToday).then(handleHttpErrors);
@@ -51,9 +52,17 @@ async function getMovieById(id) {
 
 // Viser unikke film
 async function showMovies(movies, screenings) {
+    console.log(screenings);
     const wrapper = document.querySelector(".template");
     const screeningsWrapper = document.querySelector("#screenings-wrapper");
     screeningsWrapper.innerHTML = "";
+
+    if (screenings.length == 0) {
+        const h2 = document.createElement("h2");
+        h2.innerText = "Der er ingen forestillinger denne dato.";
+        screeningsWrapper.appendChild(h2);
+    }
+
     let nodes = movies.map(async (movie) => {
         const img = document.createElement("img");
         img.src = "./images/halloween-ends.jpg";
@@ -112,7 +121,8 @@ function createButtons() {
         // a.addEventListener("mouseup", getScreeningsForDate);
         a.addEventListener("click", (e) => {
             const date = e.target.innerText;
-            getScreeningsForDate(date);
+            e.target.style.color = "red";
+            // getScreeningsForDate(date);
         });
         wrapper.appendChild(a);
         listOfDates.push(newDate);
