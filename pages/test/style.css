@@ -1,0 +1,19 @@
+#wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 500px;
+}
+
+.box {
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+    background-color: green;
+}
+.selected{
+    background-color: blue;
+}
+
+.taken {
+    background-color: red;
+}
