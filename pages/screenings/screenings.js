@@ -3,12 +3,12 @@ import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsTo
 export function initScreenings() {
     getAllScreenings();
     createButtons();
+    activeLink();
 }
 
 export async function getAllScreenings() {
     try {
         const date = getDateFromUrl();
-        console.log(date);
         let screenings = [];
         if (date == undefined) {
             screenings = await fetch(kinoUrlScreeningsToday).then(handleHttpErrors);
@@ -52,7 +52,6 @@ async function getMovieById(id) {
 
 // Viser unikke film
 async function showMovies(movies, screenings) {
-    console.log(screenings);
     const wrapper = document.querySelector(".template");
     const screeningsWrapper = document.querySelector("#screenings-wrapper");
     screeningsWrapper.innerHTML = "";
@@ -146,6 +145,21 @@ function getDateFromUrl() {
     const splitUrl = window.location.href.split("=");
     const screeningId = splitUrl[1];
     return screeningId;
+}
+
+function activeLink() {
+    const buttons = document.querySelector("#buttons-wrapper").querySelectorAll("a");
+    const date = getDateFromUrl();
+
+    if (date == undefined) {
+        buttons[0].style.color = "#b9014e";
+    }
+
+    for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].innerHTML == date) {
+            buttons[i].style.color = "#b9014e";
+        }
+    }
 }
 
 // til at hente dato til en specifik dag
