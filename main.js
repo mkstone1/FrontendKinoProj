@@ -11,7 +11,7 @@ import { initSearchMovies } from "./pages/searchMovies/searchMovies.js";
 import { initMovie} from "./pages/movie/movie.js";
 import { initCreateMovie} from "./pages/createMovie/createMovie.js";
 import { initCreateUser} from "./pages/createUser/createUser.js";
-import {initLogin} from "./pages/login/login.js"
+import { initLogin} from "./pages/login/login.js"
 
 window.addEventListener("load", init());
 
@@ -24,7 +24,7 @@ async function init() {
     const templateSearchMovies = await loadHtml("./pages/searchMovies/searchMovies.html");
     const templateMovie = await loadHtml("./pages/movie/movie.html")
     const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html")
-    const templateCreateUser = await loadHtml(".pages/createUser/createUser.html")
+    const templateCreateUser = await loadHtml("./pages/createUser/createUser.html")
     const templateLogin = await loadHtml("./pages/login/login.html")
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
