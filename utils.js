@@ -64,10 +64,7 @@ export function encode(str) {
     const updateStatus = document.querySelector("#update-status")
     updateStatus.style.display ="flex"
     updateStatus.style.justifyContent = "center"
-    console.log(response)
     const errorMessage = response.message 
-
-    console.log(errorMessage)
     if(response == true){
         document.querySelector("#update-status").innerHTML = encode(successMessage)
         return true        

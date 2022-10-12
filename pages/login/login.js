@@ -22,6 +22,11 @@ async function login(){
         const updateScreening = await fetch(kinoUrlLogin, options).then(handleHttpErrors)
         if(setErrorMessage(updateScreening,"Login success") == true){
             document.querySelector("#update-status").innerHTML = "du bliver sendt videre"
+
+            localStorage.setItem("username",userDetails.username)
+            console.log(localStorage.getItem("username"))
+            location.replace("/")
+    
         }
     }
 }
