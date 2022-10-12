@@ -20,6 +20,7 @@ function convertListOfSeatsToTicket() {
             rowNumber: seatNumber[0],
             seatNumber: seatNumber[1],
             screeningId: getScreeningIdFromUrl(),
+            username: localStorage.getItem("username"),
         };
         listOfTickets.push(ticket);
     });
@@ -146,6 +147,7 @@ async function getPriceFromScreening(screeningId) {
 
 async function showTotalTicketPrice() {
     const totalPrice = document.querySelector("#total-price");
+    totalPrice.innerHTML = "";
     const price = await getPriceFromScreening(getScreeningIdFromUrl());
 
     totalPrice.innerHTML = "Total price: " + price * listOfSelectedSeats.length + " DKK";
