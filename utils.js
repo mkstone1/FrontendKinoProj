@@ -2,6 +2,7 @@ export const kinoUrlScreenings = "http://localhost:8080/api/screenings/";
 export const kinoUrlTheaters = "http://localhost:8080/api/theaters/";
 export const kinoUrlMovies = "http://localhost:8080/api/movies/";
 export const kinoUrlScreeningsToday = "http://localhost:8080/api/screenings/today/";
+export const kinoUrlUsers = "http://localhost:8080/api/users/";
 
 export async function handleHttpErrors(res) {
 

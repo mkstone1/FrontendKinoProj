@@ -42,7 +42,6 @@ async function editScreening() {
     }
 }
 
-
 async function getAllTheaters(){
     const theaters = await fetch(kinoUrlTheaters).then(handleHttpErrors)
     dropDownData(theaters, "input-choose-theater")
@@ -58,9 +57,6 @@ async function getAllScreenings() {
     const theaters = await fetch(kinoUrlTheaters).then(handleHttpErrors)
     screeningDropDown(screenings,theaters, "input-choose-screening")
 }
-
-
-
 
 function screeningDropDown(screeningData, theaterData, elementId) {
     for (let i = 0 ; i< screeningData.length ; i++){
@@ -85,7 +81,6 @@ function dropDownData(data, elementId) {
         </option>`)
     const dataDropdown = document.getElementById(elementId).innerHTML = dataArray
 }
-
 
 async function editSelection(screeningId) {
     const movies = await fetch(kinoUrlMovies).then(handleHttpErrors)
