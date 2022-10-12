@@ -1,4 +1,4 @@
-import { handleHttpErrors, kinoUrlMovies} from "../../utils.js";
+import { handleHttpErrors, kinoUrlMovies, encode} from "../../utils.js";
 
 export function initCreateMovie(){
     window.addEventListener("load", createMovie())
@@ -24,10 +24,11 @@ async function createMovie(){
         createStatus.style.display ="flex"
         createStatus.style.justifyContent = "center"
         if(addMovie){
-            document.querySelector("#update-status").innerHTML = "Film oprettet"
+            document.querySelector("#update-status").innerHTML = encode("Film oprettet")
         }
         else{
-            document.querySelector("#update-status").innerHTML = "Fejl ved oprettelse"
+            document.querySelector("#update-status").innerHTML = encode("Fejl ved oprettelse")
         }
     }
 }
+

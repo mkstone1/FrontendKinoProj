@@ -2,6 +2,7 @@ export const kinoUrlScreenings = "http://localhost:8080/api/screenings/";
 export const kinoUrlTheaters = "http://localhost:8080/api/theaters/";
 export const kinoUrlMovies = "http://localhost:8080/api/movies/";
 export const kinoUrlScreeningsToday = "http://localhost:8080/api/screenings/today/";
+export const kinoUrlLogin ="http://localhost:8080/api/users/login/"
 
 export async function handleHttpErrors(res) {
 
@@ -46,4 +47,32 @@ export function adjustForMissingHash() {
         path = "#/";
         window.history.pushState({}, path, window.location.href + path);
     }
+}
+
+export function encode(str) {
+    str = str.replace(/&/g, "&amp;");
+    str = str.replace(/>/g, "&gt;");
+    str = str.replace(/</g, "&lt;");
+    str = str.replace(/"/g, "&quot;");
+    str = str.replace(/'/g, "&#039;");
+    return str;
+  }
+
+
+ export function setErrorMessage(response, successMessage){
+    const updateStatus = document.querySelector("#update-status")
+    updateStatus.style.display ="flex"
+    updateStatus.style.justifyContent = "center"
+    console.log(response)
+    const errorMessage = response.message 
+
+    console.log(errorMessage)
+    if(response == true){
+        document.querySelector("#update-status").innerHTML = encode(successMessage)
+
+    }
+    else{
+        document.querySelector("#update-status").innerHTML = encode(errorMessage)
+    }
+    
 }
