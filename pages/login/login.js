@@ -12,7 +12,7 @@ async function login(){
     async function checkLogin(){
 
         const userDetails = {}
-        userDetails.userName = document.querySelector("#input-user-username").value
+        userDetails.username = document.querySelector("#input-user-username").value
         userDetails.password = document.querySelector("#input-user-password").value
  
         const options = {}
@@ -20,6 +20,8 @@ async function login(){
         options.headers = {"Content-type": "application/json"}
         options.body = JSON.stringify(userDetails)
         const updateScreening = await fetch(kinoUrlLogin, options).then(handleHttpErrors)
-        setErrorMessage(updateScreening)
+        if(setErrorMessage(updateScreening,"Login success") == true){
+            document.querySelector("#update-status").innerHTML = "du bliver sendt videre"
+        }
     }
 }
