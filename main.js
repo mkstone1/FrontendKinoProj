@@ -1,6 +1,6 @@
 import "https://unpkg.com/navigo";
-import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday, kin } from "./utils.js";
-import { adjustForMissingHash, renderTemplate, loadHtml } from "./utils.js";
+import {handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday } from "./utils.js";
+import { adjustForMissingHash, renderTemplate, loadHtml} from "./utils.js";
 
 import { initScreenings } from "./pages/screenings/screenings.js";
 import { initScreening } from "./pages/screening/screening.js";
@@ -11,9 +11,8 @@ import { initSearchMovies } from "./pages/searchMovies/searchMovies.js";
 import { initMovie} from "./pages/movie/movie.js";
 import { initCreateMovie} from "./pages/createMovie/createMovie.js";
 import {initDeleteTicket} from "./pages/deleteTicket/deleteTicket.js";
-import {initSeeTickets} from "./pages/seeTickets/seeTickets.js";
-import { initCreateUser} from "./pages/createUser/createUser.js";
-import { initLogin} from "./pages/login/login.js"
+import {initSeeTickets} from "./pages/seeTickets/seeTickets";
+
 
 window.addEventListener("load", init());
 
@@ -24,14 +23,10 @@ async function init() {
     const templateCreateScreening = await loadHtml("./pages/createScreening/createScreening.html");
     const templateBookScreening = await loadHtml("./pages/bookScreening/bookScreening.html");
     const templateSearchMovies = await loadHtml("./pages/searchMovies/searchMovies.html");
-    const templateMovie = await loadHtml("./pages/movie/movie.html");
-    const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html");
-    const templateDeleteTicket = await loadHtml("./pages/deleteTicket/deleteTicket.html");
-    const templateSeeTickets = await loadHtml("./pages/seeTickets/seeTickets.html");
     const templateMovie = await loadHtml("./pages/movie/movie.html")
     const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html")
-    const templateCreateUser = await loadHtml("./pages/createUser/createUser.html")
-    const templateLogin = await loadHtml("./pages/login/login.html")
+    const templateDeleteTicket = await loadHtml("./pages/deleteTicket/deleteTicket.html")
+    const templateSeeTickets = await loadHtml("./pages/seeTickets/seeTickets.html")
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
     window.router = router;
@@ -71,13 +66,13 @@ async function init() {
                 renderTemplate(templateCreateMovie, "content");
                 initCreateMovie();
             },
-            "/login": () => {
-                renderTemplate(templateLogin, "content");
-                initLogin();
+            "/deleteTicket": () => {
+                renderTemplate(templateDeleteTicket, "content");
+                initDeleteTicket();
             },
-            "/createUser": () => {
-                renderTemplate(templateCreateUser, "content");
-                initCreateUser();
+            "/seeTickets": () => {
+                renderTemplate(templateSeeTickets, "content");
+                initSeeTickets();
             },
         })
         .resolve();
