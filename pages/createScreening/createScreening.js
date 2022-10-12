@@ -23,7 +23,7 @@ async function createScreening(){
         options.headers = {"Content-type": "application/json"}
         options.body = JSON.stringify(newScreening)
         const addScreening = await fetch(kinoUrlScreenings, options).then(handleHttpErrors)
-        setErrorMessage(addScreening)
+        setErrorMessage(addScreening, "Forestilling oprettet")
 
        
     }

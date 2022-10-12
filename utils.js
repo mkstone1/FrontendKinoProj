@@ -70,7 +70,7 @@ export function encode(str) {
     console.log(errorMessage)
     if(response == true){
         document.querySelector("#update-status").innerHTML = encode(successMessage)
-
+        return true        
     }
     else{
         document.querySelector("#update-status").innerHTML = encode(errorMessage)

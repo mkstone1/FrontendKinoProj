@@ -30,15 +30,7 @@ async function editScreening() {
         options.headers = {"Content-type": "application/json"}
         options.body = JSON.stringify(editScreening)
         const updateScreening = await fetch(URL, options).then(handleHttpErrors)
-        const updateStatus = document.querySelector("#update-status")
-        updateStatus.style.display ="flex"
-        updateStatus.style.justifyContent = "center"
-        if(updateScreening){
-            document.querySelector("#update-status").innerHTML = "show successfully updated"
-        }
-        else{
-            document.querySelector("#update-status").innerHTML = "update failed"
-        }
+        setErrorMessage(updateScreening, "Forestilling er opdateret")
     }
 }
 
