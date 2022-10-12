@@ -10,6 +10,8 @@ import { initCreateScreening } from "./pages/createScreening/createScreening.js"
 import { initSearchMovies } from "./pages/searchMovies/searchMovies.js";
 import { initMovie} from "./pages/movie/movie.js";
 import { initCreateMovie} from "./pages/createMovie/createMovie.js";
+import {initDeleteTicket} from "./pages/deleteTicket/deleteTicket.js";
+import {initSeeTickets} from "./pages/seeTickets/seeTickets.js";
 
 window.addEventListener("load", init());
 
@@ -20,8 +22,10 @@ async function init() {
     const templateCreateScreening = await loadHtml("./pages/createScreening/createScreening.html");
     const templateBookScreening = await loadHtml("./pages/bookScreening/bookScreening.html");
     const templateSearchMovies = await loadHtml("./pages/searchMovies/searchMovies.html");
-    const templateMovie = await loadHtml("./pages/movie/movie.html")
-    const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html")
+    const templateMovie = await loadHtml("./pages/movie/movie.html");
+    const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html");
+    const templateDeleteTicket = await loadHtml("./pages/deleteTicket/deleteTicket.html");
+    const templateSeeTickets = await loadHtml("./pages/seeTickets/seeTickets.html");
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
     window.router = router;
@@ -61,6 +65,14 @@ async function init() {
                 renderTemplate(templateCreateMovie, "content");
                 initCreateMovie();
             },
+            "/deleteTicket": () => {
+                renderTemplate(templateDeleteTicket, "content");
+                initDeleteTicket();
+            },
+            "seeTickets": () => {
+                renderTemplate(templateSeeTickets, "content");
+                initSeeTickets();
+            }
         })
         .resolve();
 }
