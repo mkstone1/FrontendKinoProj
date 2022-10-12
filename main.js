@@ -1,5 +1,5 @@
 import "https://unpkg.com/navigo";
-import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday } from "./utils.js";
+import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday, kin } from "./utils.js";
 import { adjustForMissingHash, renderTemplate, loadHtml } from "./utils.js";
 
 import { initScreenings } from "./pages/screenings/screenings.js";
@@ -64,13 +64,14 @@ async function init() {
             "/createMovie": () => {
                 renderTemplate(templateCreateMovie, "content");
                 initCreateMovie();
-            }, "/login": () => {
+            }, 
+            "/login": () => {
                 renderTemplate(templateLogin, "content");
                 initLogin();
             },
             "/createUser": () => {
                 renderTemplate(templateCreateUser, "content");
-                initCreateUser;
+                initCreateUser();
             },
         })
         .resolve();
