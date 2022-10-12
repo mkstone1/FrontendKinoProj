@@ -1,5 +1,5 @@
 import "https://unpkg.com/navigo";
-import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday } from "./utils.js";
+import { handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday, kin } from "./utils.js";
 import { adjustForMissingHash, renderTemplate, loadHtml } from "./utils.js";
 
 import { initScreenings } from "./pages/screenings/screenings.js";
@@ -10,6 +10,8 @@ import { initCreateScreening } from "./pages/createScreening/createScreening.js"
 import { initSearchMovies } from "./pages/searchMovies/searchMovies.js";
 import { initMovie} from "./pages/movie/movie.js";
 import { initCreateMovie} from "./pages/createMovie/createMovie.js";
+import {initDeleteTicket} from "./pages/deleteTicket/deleteTicket.js";
+import {initSeeTickets} from "./pages/seeTickets/seeTickets.js";
 import { initCreateUser} from "./pages/createUser/createUser.js";
 import { initLogin} from "./pages/login/login.js"
 
@@ -22,6 +24,10 @@ async function init() {
     const templateCreateScreening = await loadHtml("./pages/createScreening/createScreening.html");
     const templateBookScreening = await loadHtml("./pages/bookScreening/bookScreening.html");
     const templateSearchMovies = await loadHtml("./pages/searchMovies/searchMovies.html");
+    const templateMovie = await loadHtml("./pages/movie/movie.html");
+    const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html");
+    const templateDeleteTicket = await loadHtml("./pages/deleteTicket/deleteTicket.html");
+    const templateSeeTickets = await loadHtml("./pages/seeTickets/seeTickets.html");
     const templateMovie = await loadHtml("./pages/movie/movie.html")
     const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html")
     const templateCreateUser = await loadHtml("./pages/createUser/createUser.html")
@@ -64,7 +70,7 @@ async function init() {
             "/createMovie": () => {
                 renderTemplate(templateCreateMovie, "content");
                 initCreateMovie();
-            }, 
+            },
             "/login": () => {
                 renderTemplate(templateLogin, "content");
                 initLogin();
