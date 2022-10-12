@@ -1,7 +1,7 @@
 import {kinoUrlScreenings} from "../../utils.js";
 import {kinoUrlTheaters} from "../../utils.js";
 import {kinoUrlMovies} from "../../utils.js";
-import {handleHttpErrors} from "../../utils.js";
+import {handleHttpErrors, setErrorMessage} from "../../utils.js";
 
 export function initCreateScreening() {
     window.addEventListener("load", createScreening())
@@ -29,23 +29,7 @@ async function createScreening(){
     }
 }
 
-function setErrorMessage(response){
-    const updateStatus = document.querySelector("#update-status")
-    updateStatus.style.display ="flex"
-    updateStatus.style.justifyContent = "center"
-    console.log(response)
-    const errorMessage = response.message 
 
-    console.log(errorMessage)
-    if(response == true){
-        document.querySelector("#update-status").innerHTML = "Forestilling oprettet"
-
-    }
-    else{
-        document.querySelector("#update-status").innerHTML = errorMessage
-    }
-
-}
 
 async function getAllTheaters(){
     const theaters = await fetch(kinoUrlTheaters).then(handleHttpErrors)

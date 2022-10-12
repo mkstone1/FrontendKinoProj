@@ -13,7 +13,11 @@ export async function getAllScreenings() {
         if (date == undefined) {
             screenings = await fetch(kinoUrlScreeningsToday).then(handleHttpErrors);
         } else {
-            screenings = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
+            if (!date.startsWith("2022")) {
+                screenings = await fetch(kinoUrlScreeningsToday).then(handleHttpErrors);
+            } else {
+                screenings = await fetch(kinoUrlScreenings + "date/" + date).then(handleHttpErrors);
+            }
         }
         const uniqueMovieIds = uniqueScreeningMovies(screenings);
         const movies = await getMoviesForScreening(uniqueMovieIds);
@@ -82,7 +86,7 @@ async function showMovies(movies, screenings) {
         for (let i = 0; i < screenings.length; i++) {
             if (movie.id === screenings[i].movieId) {
                 const a = document.createElement("a");
-                a.className = "selects"
+                a.className = "selects";
                 const li = document.createElement("li");
                 let string = screenings[i].screeningStartTime;
                 string = string.substring(string.indexOf("T") + 1);
@@ -116,7 +120,7 @@ function createButtons() {
         newDate.setDate(today.getDate() + i);
         newDate = newDate.toISOString().split("T")[0];
         a.innerText = newDate;
-        a.className = "selects"
+        a.className = "selects";
         a.setAttribute("href", "#/?screeningDate=" + newDate);
         a.addEventListener("click", (e) => {
             const date = e.target.innerText;
@@ -136,7 +140,7 @@ function activeLink() {
     const buttons = document.querySelector("#buttons-wrapper").querySelectorAll("a");
     const date = getDateFromUrl();
 
-    if (date == undefined) {
+    if (date == undefined || !date.startsWith("2022")) {
         buttons[0].style.color = "#b9014e";
     }
 
