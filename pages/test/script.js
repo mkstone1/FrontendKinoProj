@@ -1,32 +1,62 @@
-import {handleHttpErrors} from "../../utils.js";
-
+import { handleHttpErrors, kinoUrlScreenings } from "../../utils.js";
+let listOfSelectedSeats = [];
+let listOfTickets = [];
 window.addEventListener("load", init());
 
-let listOfSelectedSeats = [];
+document.querySelector("#book-ticket").addEventListener("click", async function () {
+    if (listOfSelectedSeats.length !== 0) {
+        await postTickets(convertListOfSeatsToTicket());
+    }
+});
+
+function convertListOfSeatsToTicket() {
+    listOfSelectedSeats.forEach((seat) => {
+        const seatNumber = seat.split(" ");
+        const ticket = {
+            rowNumber: seatNumber[0],
+            seatNumber: seatNumber[1],
+            screeningId: getScreeningIdFromUrl(),
+        };
+        listOfTickets.push(ticket);
+    });
+    return listOfTickets;
+}
+
+async function postTickets(tickets) {
+    console.log(tickets);
+    for (let i = 0; i < tickets.length; i++) {
+        const ticket = tickets[i];
+        console.log(ticket);
+        await makeNewTicket(ticket);
+    }
+    async function makeNewTicket(newTicket) {
+        const options = {};
+        options.method = "POST";
+        options.headers = { "Content-type": "application/json" };
+        options.body = JSON.stringify(newTicket);
+        console.log(options);
+        await fetch("http://localhost:8080/api/tickets/", options).then(handleHttpErrors);
+    }
+}
 
 function init() {
     const seats = 20;
     const rows = 12;
     createDisplay(seats, rows);
 
-    getAllTicketsFromScreening(getScreeningIdFromUrl()).then(function(tickets) {
-        tickets.forEach(ticket => {
-            console.log(ticket);
-            console.log(ticket.seatNumber);
+    getAllTicketsFromScreening(getScreeningIdFromUrl()).then(function (tickets) {
+        tickets.forEach((ticket) => {
             const seat = document.getElementById(ticket.rowNumber + " " + ticket.seatNumber);
-            if(seat !== null) {
-                console.log("seat is not null");
+            if (seat !== null) {
                 seat.classList.add("taken");
             }
         });
-    }
-    )
+    });
 }
 
-async function getAllTicketsFromScreening(screeningId){
+async function getAllTicketsFromScreening(screeningId) {
     const tickets = await fetch("http://localhost:8080/api/tickets/" + "screening/" + screeningId).then(handleHttpErrors);
     return tickets;
-
 }
 
 function getScreeningIdFromUrl() {
@@ -34,7 +64,6 @@ function getScreeningIdFromUrl() {
     const screeningId = splitUrl[1];
     return screeningId;
 }
-
 
 async function createDisplay(seats, rows) {
     const wrapper = document.querySelector("#wrapper");
@@ -45,43 +74,34 @@ async function createDisplay(seats, rows) {
             box.id = i + 1 + " " + (n + 1);
             wrapper.appendChild(box);
 
-
-            //create a list of all selected seats and add eventlistener to each box to add or remove seats from the list when clicked on and add a ticket object to the list of selected seats when clicked on and remove it when clicked on again
-            box.addEventListener("click", function() {
+            box.addEventListener("click", function () {
                 if (listOfSelectedSeats.includes(box.id)) {
+                    console.log(listOfSelectedSeats);
                     listOfSelectedSeats.splice(listOfSelectedSeats.indexOf(box.id), 1);
                     box.classList.remove("selected");
-
                 } else {
-                    if(box.classList.contains("taken")) {
+                    if (box.classList.contains("taken")) {
                         alert("Seat is taken");
-                    }else {
+                    } else {
                         listOfSelectedSeats.push(box.id);
                         box.classList.add("selected");
+                        console.log(listOfSelectedSeats);
                     }
                 }
-
-                //create a ticket object and add it to the list of selected seats
-                const ticket = {
-                    row: box.id.split(" ")[0],
-                    seat: box.id.split(" ")[1],
-                    screeningId: getScreeningIdFromUrl(),
-                    }
-                if (listOfSelectedSeats.includes(box.id)) {
-                    listOfSelectedSeats.push(ticket);
-                    console.log(listOfSelectedSeats);
-
-                } else {
-                    listOfSelectedSeats.splice(listOfSelectedSeats.indexOf(ticket), 1);
-                    console.log(listOfSelectedSeats);
-                }
-            }
-            )
+            });
         }
-
-
     }
-
 }
 
+//get price from screenings by screening id and display the total price of the tickets
+async function getPriceFromScreening(screeningId) {
+    const screening = await fetch("http://localhost:8080/api/screenings/" + screeningId).then(handleHttpErrors);
+    return screening.price;
+}
 
+async function showTotalTicketPrice() {
+    const totalPrice = document.querySelector("#total-price");
+    const price = await getPriceFromScreening(getScreeningIdFromUrl());
+
+    totalPrice.innerHTML = "Total price: " + price * listOfSelectedSeats.length + " DKK";
+}
