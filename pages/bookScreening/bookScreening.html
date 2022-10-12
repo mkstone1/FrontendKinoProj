@@ -1,19 +1,24 @@
 <div class="template">
-    <h1 id="movie-name"></h1>
-    <h2 id="screening-start-time"></h2>
-    <h3 id="screening-price"></h3>
+    <div id="wrapper">
+        <div id="movie">
+            <h1 id="movie-name"></h1>
+            <h2 id="screening-start-time"></h2>
+            <h3 id="screening-price"></h3>
 
-
-    <form method="POST">
-        <input type="text" style="display: none" id="screeningId">
-        <select id="screeningRows" name="rows">
-
-        </select>
-        <select id="screeningSeats" name="seats">
-
-        </select>
-        <input type="submit" id="createTicket">
-    </form>
-
-
+            <form method="POST">
+                <input type="text" style="display: none" id="screeningId" />
+                <select id="screeningRows" name="rows"></select>
+                <select id="screeningSeats" name="seats"></select>
+                <input type="submit" id="createTicket" />
+            </form>
+        </div>
+        <div id="seats">
+            <p id="canvas">Lærred</p>
+            <div id="seats-display"></div>
+            <div id="seats-info">
+                <h1 id="total-price"></h1>
+                <input type="submit" name="submit" value="Submit" id="book-ticket" />
+            </div>
+        </div>
+    </div>
 </div>

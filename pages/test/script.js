@@ -1,29 +1,26 @@
-import {handleHttpErrors, kinoUrlScreenings} from "../../utils.js";
+import { handleHttpErrors, kinoUrlScreenings } from "../../utils.js";
 let listOfSelectedSeats = [];
 let listOfTickets = [];
 window.addEventListener("load", init());
 
-
-document.querySelector("#book-ticket").addEventListener("click", async function() {
-    if(listOfSelectedSeats.length !== 0) {
+document.querySelector("#book-ticket").addEventListener("click", async function () {
+    if (listOfSelectedSeats.length !== 0) {
         await postTickets(convertListOfSeatsToTicket());
     }
 });
 
-
-function convertListOfSeatsToTicket(){
-    listOfSelectedSeats.forEach(seat => {
+function convertListOfSeatsToTicket() {
+    listOfSelectedSeats.forEach((seat) => {
         const seatNumber = seat.split(" ");
         const ticket = {
             rowNumber: seatNumber[0],
             seatNumber: seatNumber[1],
-            screeningId: getScreeningIdFromUrl()
-        }
+            screeningId: getScreeningIdFromUrl(),
+        };
         listOfTickets.push(ticket);
-    })
+    });
     return listOfTickets;
 }
-
 
 async function postTickets(tickets) {
     console.log(tickets);
@@ -32,39 +29,34 @@ async function postTickets(tickets) {
         console.log(ticket);
         await makeNewTicket(ticket);
     }
-    async function makeNewTicket(newTicket){
-        const options = {}
-        options.method = "POST"
-        options.headers = {"Content-type": "application/json"}
-        options.body = JSON.stringify(newTicket)
+    async function makeNewTicket(newTicket) {
+        const options = {};
+        options.method = "POST";
+        options.headers = { "Content-type": "application/json" };
+        options.body = JSON.stringify(newTicket);
         console.log(options);
-        await fetch("http://localhost:8080/api/tickets/", options).then(handleHttpErrors)
+        await fetch("http://localhost:8080/api/tickets/", options).then(handleHttpErrors);
     }
 }
-
-
-
 
 function init() {
     const seats = 20;
     const rows = 12;
     createDisplay(seats, rows);
 
-    getAllTicketsFromScreening(getScreeningIdFromUrl()).then(function(tickets) {
-        tickets.forEach(ticket => {
+    getAllTicketsFromScreening(getScreeningIdFromUrl()).then(function (tickets) {
+        tickets.forEach((ticket) => {
             const seat = document.getElementById(ticket.rowNumber + " " + ticket.seatNumber);
-            if(seat !== null) {
+            if (seat !== null) {
                 seat.classList.add("taken");
             }
         });
-    }
-    )
+    });
 }
 
-async function getAllTicketsFromScreening(screeningId){
+async function getAllTicketsFromScreening(screeningId) {
     const tickets = await fetch("http://localhost:8080/api/tickets/" + "screening/" + screeningId).then(handleHttpErrors);
     return tickets;
-
 }
 
 function getScreeningIdFromUrl() {
@@ -72,7 +64,6 @@ function getScreeningIdFromUrl() {
     const screeningId = splitUrl[1];
     return screeningId;
 }
-
 
 async function createDisplay(seats, rows) {
     const wrapper = document.querySelector("#wrapper");
@@ -83,27 +74,23 @@ async function createDisplay(seats, rows) {
             box.id = i + 1 + " " + (n + 1);
             wrapper.appendChild(box);
 
-            box.addEventListener("click", function() {
-
-                    if (listOfSelectedSeats.includes(box.id)) {
-                        console.log(listOfSelectedSeats);
+            box.addEventListener("click", function () {
+                if (listOfSelectedSeats.includes(box.id)) {
+                    console.log(listOfSelectedSeats);
                     listOfSelectedSeats.splice(listOfSelectedSeats.indexOf(box.id), 1);
                     box.classList.remove("selected");
                 } else {
-                    if(box.classList.contains("taken")) {
+                    if (box.classList.contains("taken")) {
                         alert("Seat is taken");
-                    }else {
+                    } else {
                         listOfSelectedSeats.push(box.id);
                         box.classList.add("selected");
                         console.log(listOfSelectedSeats);
-
                     }
                 }
-            }
-            )
+            });
         }
     }
-
 }
 
 //get price from screenings by screening id and display the total price of the tickets
@@ -118,5 +105,3 @@ async function showTotalTicketPrice() {
 
     totalPrice.innerHTML = "Total price: " + price * listOfSelectedSeats.length + " DKK";
 }
-
-
