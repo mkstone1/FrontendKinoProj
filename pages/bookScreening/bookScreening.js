@@ -4,23 +4,12 @@ let listOfSelectedSeats = [];
 let listOfTickets = [];
 
 export function initBookScreening() {
-    createDisplay(20, 12);
     getObjects();
-    createNewTicket();
 
     document.querySelector("#book-ticket").addEventListener("click", async function () {
         if (listOfSelectedSeats.length !== 0) {
             await postTickets(convertListOfSeatsToTicket());
         }
-    });
-
-    getAllTicketsFromScreening(getScreeningIdFromUrl()).then(function (tickets) {
-        tickets.forEach((ticket) => {
-            const seat = document.getElementById(ticket.rowNumber + " " + ticket.seatNumber);
-            if (seat !== null) {
-                seat.classList.add("taken");
-            }
-        });
     });
 }
 
@@ -69,51 +58,7 @@ async function getObjects() {
     const rowsSize = theater.rows;
     const seatsSize = theater.seatsPrRow;
 
-    createRows(rowsSize);
-    createSeats(seatsSize);
-}
-
-function createRows(size) {
-    const rows = document.getElementById("screeningRows");
-    let rowNum;
-    for (let i = 0; i < size; i++) {
-        const option = document.createElement("option");
-        rowNum = i + 1;
-        option.value = rowNum;
-        option.innerText = rowNum;
-        rows.appendChild(option);
-    }
-}
-
-function createSeats(size) {
-    const seats = document.getElementById("screeningSeats");
-    let seatNum;
-    for (let i = 0; i < size; i++) {
-        const option = document.createElement("option");
-        seatNum = i + 1;
-        option.value = seatNum;
-        option.innerText = seatNum;
-        seats.appendChild(option);
-    }
-}
-
-async function createNewTicket() {
-    document.querySelector("#createTicket").onclick = makeNewTicket;
-
-    async function makeNewTicket() {
-        const ticket = {};
-        ticket.rowNumber = document.querySelector("#screeningRows").value;
-        ticket.seatNumber = document.querySelector("#screeningSeats").value;
-        ticket.screeningId = document.querySelector("#screeningId").value;
-
-        const options = {};
-        options.method = "POST";
-        options.headers = { "Content-type": "application/json" };
-        options.body = JSON.stringify(ticket);
-        console.log(ticket);
-        const addTicket = await fetch("http://localhost:8080/api/tickets/", options).then(handleHttpErrors);
-        window.location.href = "";
-    }
+    createDisplay(seatsSize, rowsSize);
 }
 
 function getScreeningIdFromUrl() {
@@ -140,9 +85,27 @@ async function getTheaterFromScreeningId(theaterId) {
     return await fetch(kinoUrlTheaters + theaterId).then(handleHttpErrors);
 }
 
-async function createDisplay(seats, rows) {
+function createDisplay(seats, rows) {
     const wrapper = document.querySelector("#seats-display");
     wrapper.innerHTML = "";
+
+    getAllTicketsFromScreening(getScreeningIdFromUrl()).then(function (tickets) {
+        tickets.forEach((ticket) => {
+            const seat = document.getElementById(ticket.rowNumber + " " + ticket.seatNumber);
+            if (seat !== null) {
+                seat.classList.add("taken");
+            }
+        });
+    });
+
+    if (rows == 25) {
+        wrapper.classList.remove("seats-display-small");
+        wrapper.classList.add("seats-display-big");
+    } else {
+        wrapper.classList.remove("seats-display-big");
+        wrapper.classList.add("seats-display-small");
+    }
+
     for (let i = 0; i < rows; i++) {
         for (let n = 0; n < seats; n++) {
             const box = document.createElement("div");
@@ -151,6 +114,7 @@ async function createDisplay(seats, rows) {
             wrapper.appendChild(box);
 
             box.addEventListener("click", function () {
+                showTotalTicketPrice();
                 if (listOfSelectedSeats.includes(box.id)) {
                     console.log(listOfSelectedSeats);
                     listOfSelectedSeats.splice(listOfSelectedSeats.indexOf(box.id), 1);
@@ -172,4 +136,17 @@ async function createDisplay(seats, rows) {
 async function getAllTicketsFromScreening(screeningId) {
     const tickets = await fetch("http://localhost:8080/api/tickets/" + "screening/" + screeningId).then(handleHttpErrors);
     return tickets;
+}
+
+//get price from screenings by screening id and display the total price of the tickets
+async function getPriceFromScreening(screeningId) {
+    const screening = await fetch("http://localhost:8080/api/screenings/" + screeningId).then(handleHttpErrors);
+    return screening.price;
+}
+
+async function showTotalTicketPrice() {
+    const totalPrice = document.querySelector("#total-price");
+    const price = await getPriceFromScreening(getScreeningIdFromUrl());
+
+    totalPrice.innerHTML = "Total price: " + price * listOfSelectedSeats.length + " DKK";
 }

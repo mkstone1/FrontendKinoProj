@@ -14,7 +14,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 500px;
+    /* max-width: 300px; */
+}
+
+.seats-display-big {
+    max-width: 400px;
+}
+
+.seats-display-small {
+    max-width: 300px;
 }
 
 .box {
