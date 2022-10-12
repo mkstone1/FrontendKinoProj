@@ -14,6 +14,7 @@ import {initDeleteTicket} from "./pages/deleteTicket/deleteTicket.js";
 import {initSeeTickets} from "./pages/seeTickets/seeTickets.js";
 import { initCreateUser} from "./pages/createUser/createUser.js";
 import { initLogin} from "./pages/login/login.js"
+import { initLogout} from "./pages/logout/logout.js"
 
 window.addEventListener("load", init());
 
@@ -84,6 +85,9 @@ async function init() {
             "/deleteTicket": () => {
                 renderTemplate(templateDeleteTicket, "content");
                 initDeleteTicket();
+            },
+            "/logout": () => {
+                initLogout();
             },
         })
         .resolve();

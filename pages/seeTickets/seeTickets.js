@@ -13,7 +13,7 @@ async function getTickets() {
 
 function getUsernameFromUrl(){
     const url = window.location.href;
-    const username = url.split('=')[1];
+    const username = localStorage.getItem("username");
     return username;
 }
 
