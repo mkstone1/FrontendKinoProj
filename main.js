@@ -40,6 +40,7 @@ async function init() {
             //For very simple "templates", you can just insert your HTML directly like below
             "/": () => {
                 renderTemplate(templateScreenings, "content");
+                
                 initScreenings();
             },
             "/editScreening": () => {
@@ -92,3 +93,5 @@ async function init() {
         })
         .resolve();
 }
+
+
