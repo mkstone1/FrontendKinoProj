@@ -98,21 +98,3 @@ async function getScreeningsForMovie(movie, allScreenings, date) {
     displayStatisticsForMovie(allScreeningsForMovie);
 }
 
-async function displayStatisticsForMovie(allScreeningsForMovie) {
-    let allTickets = [];
-    let totalPotentialTickets = 0;
-
-    let date = new Date();
-    date = date.toISOString().split("T")[0];
-    allScreeningsForMovie = allScreeningsForMovie.filter((screening) => screening.screeningStartTime < date);
-    for (const screening in allScreeningsForMovie) {
-        const allTicketsFromScreening = await fetch("http://localhost:8080/api/tickets/screening/1").then(handleHttpErrors);
-        for (const t in allTicketsFromScreening) {
-            allTickets.push(allTicketsFromScreening[t]);
-        }
-
-        const availableTickets = await fetch("http://localhost:8080/api/theaters/" + allScreeningsForMovie[screening].theaterId).then(handleHttpErrors);
-        totalPotentialTickets += availableTickets.rows * availableTickets.seatsPrRow;
-    }
-
-}
