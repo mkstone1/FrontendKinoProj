@@ -35,8 +35,12 @@ async function postTickets(tickets) {
         await makeNewTicket(ticket);
         const successMessage = document.querySelector("#success")
         successMessage.removeAttribute("hidden");
-        await getObjects();
+        //when array is looped through, clear the array
+        if (i === tickets.length - 1) {
+            listOfSelectedSeats = [];
+            listOfTickets = [];
 
+        }
     }
     async function makeNewTicket(newTicket) {
         const options = {};
