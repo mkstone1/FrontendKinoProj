@@ -61,6 +61,7 @@ function checkLoginStatus(){
     loggedInUser.push(homeLink)
     loggedInUser.push(searchMovies)
     loggedInUser.push(logout)
+    loggedInUser.push(seeTickets)
 
     noLogin.push(homeLink)
     noLogin.push(searchMovies)
