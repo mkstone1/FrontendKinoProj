@@ -34,7 +34,7 @@ async function postTickets(tickets) {
         await makeNewTicket(ticket);
         const successMessage = document.querySelector("#success")
         successMessage.removeAttribute("hidden");
-        if(tickets.length === i) {
+        if(tickets.length === i-1) {
             tickets = [];
         }
     }
