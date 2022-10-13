@@ -23,7 +23,7 @@ export async function getAllScreenings() {
         const movies = await getMoviesForScreening(uniqueMovieIds);
         showMovies(movies, screenings);
     } catch (err) {
-        console.log(err);
+    
     }
 }
 

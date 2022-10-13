@@ -105,8 +105,6 @@ async function displayStatisticsForMovie(allScreeningsForMovie) {
     let date = new Date();
     date = date.toISOString().split("T")[0];
     allScreeningsForMovie = allScreeningsForMovie.filter((screening) => screening.screeningStartTime < date);
-    console.log(allScreeningsForMovie);
-
     for (const screening in allScreeningsForMovie) {
         const allTicketsFromScreening = await fetch("http://localhost:8080/api/tickets/screening/1").then(handleHttpErrors);
         for (const t in allTicketsFromScreening) {
@@ -117,8 +115,4 @@ async function displayStatisticsForMovie(allScreeningsForMovie) {
         totalPotentialTickets += availableTickets.rows * availableTickets.seatsPrRow;
     }
 
-    console.log("tickets sold for this movie : ");
-    console.log(allTickets.length);
-    console.log("potential tickets for this movie : ");
-    console.log(totalPotentialTickets);
 }
