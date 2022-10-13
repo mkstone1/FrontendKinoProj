@@ -33,7 +33,7 @@ async function login(){
 
             localStorage.setItem("role", user.role);
             localStorage.setItem("username",userDetails.username)
-            console.log(localStorage.getItem("username"))
+            console.log(localStorage.getItem("role"))
             location.replace("/")
 
         }

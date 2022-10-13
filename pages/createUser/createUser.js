@@ -12,11 +12,9 @@ async function createUser(){
         const checkPassword = document.querySelector("#input-password-again").value
         if(password == checkPassword){
             makeNewUser()
-            console.log(password)
         }
         else{
-            document.querySelector("#update-status").innerHTML = "password stemmer ikke overens"
-            console.log(password)
+            document.querySelector("#update-status").innerHTML = encode("password stemmer ikke overens")
         }
     }
 
