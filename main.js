@@ -108,7 +108,7 @@ async function init() {
                     renderTemplate(templateCreateUser, "content");
                     initCreateUser();
                 } else {
-                    renderTemplate(templateError, "content");ß
+                    renderTemplate(templateError, "content");
                 }
             },
             "/seeTickets": () => {
