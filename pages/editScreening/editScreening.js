@@ -1,7 +1,7 @@
 import {kinoUrlScreenings} from "../../utils.js";
 import {kinoUrlTheaters} from "../../utils.js";
 import {kinoUrlMovies} from "../../utils.js";
-import {handleHttpErrors} from "../../utils.js";
+import {handleHttpErrors, setErrorMessage} from "../../utils.js";
 
 export function initEditScreening(){
 window.addEventListener("load", editScreening())
