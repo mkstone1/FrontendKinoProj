@@ -1,8 +1,13 @@
-import {kinoUrlLogin} from "../../utils.js";
+import {kinoUrlLogin, kinoUrlUsers} from "../../utils.js";
 import {handleHttpErrors, setErrorMessage} from "../../utils.js";
 
 export function initLogin(){
 window.addEventListener("load", login())
+}
+
+
+ function getUserFromUsername(username){
+    return fetch(kinoUrlUsers + username).then(handleHttpErrors);
 }
 
 
@@ -23,6 +28,10 @@ async function login(){
         if(setErrorMessage(updateScreening,"Login success") == true){
             document.querySelector("#update-status").innerHTML = "du bliver sendt videre"
 
+            const username = userDetails.username;
+            const user = await getUserFromUsername(username);
+
+            localStorage.setItem("role", user.role);
             localStorage.setItem("username",userDetails.username)
             console.log(localStorage.getItem("username"))
             location.replace("/")
