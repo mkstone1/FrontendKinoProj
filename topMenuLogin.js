@@ -53,11 +53,6 @@ function checkLoginStatus(){
         aLink: "/logout",
         aText: "Log ud"
     }
-
-
-
-    
-
  
     const noLogin = []
     const loggedInUser = []
@@ -81,10 +76,7 @@ function checkLoginStatus(){
     adminLogin.push(createUser)
     adminLogin.push(seeTickets)
     adminLogin.push(logout)
-
-
-    
-    console.log(localStorage.getItem("role"))
+ 
     if(localStorage.getItem("role") == "USER"){
         createTopMenu(loggedInUser)
     }
@@ -94,11 +86,6 @@ function checkLoginStatus(){
     else{
         createTopMenu(noLogin)
     }
-
-
-
-
-
 }
 
 
@@ -130,7 +117,6 @@ function createTopMenu(linksToCreate){
         li.appendChild(a);
         ul.appendChild(li);
 
-        
     }
     div.append(ul)
     document.querySelector("#topnav").append(div)
