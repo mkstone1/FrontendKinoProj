@@ -4,22 +4,111 @@ window.addEventListener("load",checkLoginStatus())
 
 
 function checkLoginStatus(){
-    console.log(localStorage.getItem("username"))
+
+
+    const homeLink = {
+        aLink: "/",
+        aText: "Se forestillinger"
+    }
+
+    const createScreening = {
+        aLink: "/createScreening",
+        aText: "Opret forestilling"
+    }
+
+    const editScreening = {
+        aLink: "/editScreening",
+        aText: "Ret forestilling"
+    }
+
+    const searchMovies = {
+        aLink: "/searchMovies",
+        aText: "Find film"
+    }
+
+    const createMovie = {
+        aLink: "/createMovie",
+        aText: "Opret film"
+    }
+
+    const createUser = {
+        aLink: "/createUser",
+        aText: "Opret bruger"
+    }
+
+    
+    const loginLink = {
+        aLink: "/login",
+        aText: "Login"
+    }
+
+
+    const seeTickets = {
+        aLink: "/seeTickets",
+        aText: "Se profil"
+    }
+
+
+    const logout = {
+        aLink: "/logout",
+        aText: "Log ud"
+    }
 
 
 
+    
 
-    if(localStorage.getItem("username") == null){
-    createMenuNoLogin()}
+ 
+    const noLogin = []
+    const loggedInUser = []
+    const adminLogin = []
+
+    loggedInUser.push(homeLink)
+    loggedInUser.push(searchMovies)
+    loggedInUser.push(logout)
+
+    noLogin.push(homeLink)
+    noLogin.push(searchMovies)
+    noLogin.push(createUser)
+    noLogin.push(loginLink)
+
+
+    adminLogin.push(homeLink)
+    adminLogin.push(createScreening)
+    adminLogin.push(editScreening)
+    adminLogin.push(searchMovies)
+    adminLogin.push(createMovie)
+    adminLogin.push(createUser)
+    adminLogin.push(seeTickets)
+    adminLogin.push(logout)
+
+
+    
+    console.log(localStorage.getItem("role"))
+    if(localStorage.getItem("role") == "USER"){
+        createTopMenu(loggedInUser)
+    }
+    else if(localStorage.getItem("role") == "ADMIN" ){
+        createTopMenu(adminLogin)
+    }
+    else{
+        createTopMenu(noLogin)
+    }
+
+
+
 
 
 }
 
-async function createMenuNoLogin(){
-    console.log("test")
-    
-    const ul = document.createElement("ul")
+
+
+function createTopMenu(linksToCreate){
     const div = document.createElement("div")
+    const ul = document.createElement("ul")
+    ul.id = "menu"
+    ul.className ="menu-horizontal"
+   
 
     const aLogo = document.createElement("a")
     aLogo.setAttribute("href", "/")
@@ -29,45 +118,22 @@ async function createMenuNoLogin(){
     const liLogo = document.createElement("li")
     liLogo.append(aLogo)
 
-    const aHome = document.createElement("a")
-    aHome.setAttribute("href", "/")
-    aHome.setAttribute("data-navigo", true)
-    aHome.textContent = "Se forestillinger"
-    const liHome = document.createElement("li")
-    liHome.append(aHome)
-
-    const aLogin = document.createElement("a")
-    aLogin.setAttribute("href", "/login")
-    aLogin.setAttribute("data-navigo", true)
-    aLogin.textContent = "Login"
-    const liLogin = document.createElement("li")
-    liLogin.append(aLogin)
-
-
-    const aFindMovie = document.createElement("a")
-    aFindMovie.setAttribute("href", "/searchMovies")
-    aFindMovie.setAttribute("data-navigo", true)
-    aFindMovie.textContent = "Find film"
-    const liFindFilm = document.createElement("li")
-    liFindFilm.append(aFindMovie)
-
-    const aCreateUser = document.createElement("a")
-    aCreateUser.setAttribute("href" , "/createUser")
-    aCreateUser.setAttribute("data-navigo", true)
-    aCreateUser.textContent = "Opret bruger"
-    const liCreatemovie = document.createElement("li")
-    liCreatemovie.append(aCreateUser)
-
-
     ul.append(liLogo)
-    ul.append(liHome)
-    ul.append(liFindFilm)
-    ul.append(liCreatemovie)
-    ul.append(liLogin)
+    for(let i = 0 ; i < Object.keys(linksToCreate).length ; i ++){
+        const a = document.createElement("a");
+        const li = document.createElement("li");
     
-    ul.id = "menu"
-    ul.className ="menu-horizontal"
-    
+        console.log("test")
+        a.textContent = linksToCreate[i].aText;
+        a.setAttribute("href", linksToCreate[i].aLink);
+        a.setAttribute("data-navigo", true)
+        li.appendChild(a);
+        ul.appendChild(li);
+
+        
+    }
     div.append(ul)
     document.querySelector("#topnav").append(div)
+
 }
+
