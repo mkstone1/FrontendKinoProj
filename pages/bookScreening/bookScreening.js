@@ -34,8 +34,9 @@ async function postTickets(tickets) {
         await makeNewTicket(ticket);
         const successMessage = document.querySelector("#success")
         successMessage.removeAttribute("hidden");
-        await getObjects();
-
+        if(tickets.length === i) {
+            tickets = [];
+        }
     }
     async function makeNewTicket(newTicket) {
         const options = {};
