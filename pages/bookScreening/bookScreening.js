@@ -29,6 +29,7 @@ function convertListOfSeatsToTicket() {
 
 async function postTickets(tickets) {
 
+    console.log(tickets)
     for (let i = 0; i < tickets.length; i++) {
         const ticket = tickets[i];
         await makeNewTicket(ticket);
