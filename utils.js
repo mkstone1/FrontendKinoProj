@@ -1,11 +1,11 @@
-export const kinoUrlScreenings = "http://localhost:8080/api/screenings/";
-export const kinoUrlTheaters = "http://localhost:8080/api/theaters/";
-export const kinoUrlMovies = "http://localhost:8080/api/movies/";
-export const kinoUrlScreeningsToday = "http://localhost:8080/api/screenings/today/";
-export const kinoUrlTickets = "http://localhost:8080/api/tickets/";
-export const kinoUrlTicketsUsername = "http://localhost:8080/api/tickets/username/"
-export const kinoUrlLogin ="http://localhost:8080/api/users/login/";
-export const kinoUrlUsers = "http://localhost:8080/api/users/";
+export const kinoUrlScreenings = "https://kinoprojbackend02.azurewebsites.net/api/screenings/";
+export const kinoUrlTheaters = "https://kinoprojbackend02.azurewebsites.net/api/theaters/";
+export const kinoUrlMovies = "https://kinoprojbackend02.azurewebsites.net/api/movies/";
+export const kinoUrlScreeningsToday = "https://kinoprojbackend02.azurewebsites.net/api/screenings/today/";
+export const kinoUrlTickets = "https://kinoprojbackend02.azurewebsites.net/api/tickets/";
+export const kinoUrlTicketsUsername = "https://kinoprojbackend02.azurewebsites.net/api/tickets/username/"
+export const kinoUrlLogin ="https://kinoprojbackend02.azurewebsites.net/api/users/login/";
+export const kinoUrlUsers = "https://kinoprojbackend02.azurewebsites.net/api/users/";
 
 export async function handleHttpErrors(res) {
 
