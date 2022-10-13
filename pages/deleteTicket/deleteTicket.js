@@ -21,5 +21,5 @@ async function deleteTicket(){
     options.headers = {"Content-type": "application/json"}
     await fetch(kinoUrlTickets + ticketId, options).then(handleHttpErrors)
     //update to user page. 
-    window.location.href = "#";
+    window.location.href = "/#/seeTickets";
 }

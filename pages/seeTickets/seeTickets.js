@@ -30,6 +30,10 @@ async function showTickets() {
     const div = document.getElementById("tickets");
     const table = document.getElementById("ticket-table");
 
+    while (table.rows.length > 1) {
+        table.deleteRow(1);
+    }
+
     tickets.forEach(ticket => {
         const tr = document.createElement("tr");
 
