@@ -1,6 +1,6 @@
 import "https://unpkg.com/navigo";
 import {handleHttpErrors, kinoUrlScreenings, kinoUrlMovies, kinoUrlScreeningsToday } from "./utils.js";
-import { adjustForMissingHash, renderTemplate, loadHtml} from "./utils.js";
+import { adjustForMissingHash, renderTemplate, loadHtml, setActiveLink} from "./utils.js";
 
 import { initScreenings } from "./pages/screenings/screenings.js";
 import { initScreening } from "./pages/screening/screening.js";
@@ -36,6 +36,12 @@ async function init() {
     window.router = router;
 
     await router
+        .hooks({
+            before(done, match) {
+            setActiveLink("menu", match.url)
+            done()
+            }
+        })
         .on({
             //For very simple "templates", you can just insert your HTML directly like below
             "/": () => {

@@ -76,3 +76,14 @@ export function encode(str) {
     }
     
 }
+
+export function setActiveLink(topnav, activeUrl) {
+    const links = document.getElementById(topnav).querySelectorAll("a");
+    links.forEach(child => {
+      child.classList.remove("active")
+      //remove leading '/' if any
+      if (child.getAttribute("href").replace(/\//, "") === activeUrl) {
+        child.classList.add("active")
+      }
+    })
+  }
