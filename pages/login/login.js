@@ -35,7 +35,7 @@ async function login(){
             localStorage.setItem("username",userDetails.username)
             console.log(localStorage.getItem("username"))
             location.replace("/")
-    
+
         }
     }
 }

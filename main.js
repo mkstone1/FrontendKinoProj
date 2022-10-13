@@ -31,9 +31,11 @@ async function init() {
     const templateCreateMovie = await loadHtml("./pages/createMovie/createMovie.html")
     const templateCreateUser = await loadHtml("./pages/createUser/createUser.html")
     const templateLogin = await loadHtml("./pages/login/login.html")
+    const templateError = await loadHtml("./pages/error/error.html")
     adjustForMissingHash();
     const router = new Navigo("/", { hash: true });
     window.router = router;
+    const userRole = localStorage.getItem("role");
 
     await router
         .on({
@@ -43,12 +45,20 @@ async function init() {
                 initScreenings();
             },
             "/editScreening": () => {
-                renderTemplate(templateEditScreening, "content");
-                initEditScreening();
+                if(userRole === "ADMIN") {
+                    renderTemplate(templateEditScreening, "content");
+                    initEditScreening();
+                }else {
+                    renderTemplate(templateError, "content");
+                }
             },
             "/createScreening": () => {
+                if(userRole === "ADMIN") {
                 renderTemplate(templateCreateScreening, "content");
                 initCreateScreening();
+                }else {
+                    renderTemplate(templateError, "content");
+                }
             },
             "/searchMovies": () => {
                 renderTemplate(templateSearchMovies, "content");
@@ -63,31 +73,59 @@ async function init() {
                 initMovie();
             },
             "/bookScreening": () => {
-                renderTemplate(templateBookScreening, "content");
-                initBookScreening();
+                if(userRole === "USER" || userRole === "ADMIN") {
+                    renderTemplate(templateBookScreening, "content");
+                    initBookScreening();
+                }
+                else {
+                    renderTemplate(templateError, "content");
+                }
             },
             "/createMovie": () => {
-                renderTemplate(templateCreateMovie, "content");
-                initCreateMovie();
+                if (userRole === "ADMIN") {
+                    renderTemplate(templateCreateMovie, "content");
+                    initCreateMovie();
+                } else {
+                    renderTemplate(templateError, "content");
+                }
             },
             "/login": () => {
-                renderTemplate(templateLogin, "content");
-                initLogin();
+                if(userRole === null) {
+                    renderTemplate(templateLogin, "content");
+                    initLogin();
+                } else {
+                    renderTemplate(templateError, "content");
+                }
             },
             "/createUser": () => {
-                renderTemplate(templateCreateUser, "content");
-                initCreateUser();
+                if(userRole === null) {
+                    renderTemplate(templateCreateUser, "content");
+                    initCreateUser();
+                } else {
+                    renderTemplate(templateError, "content");ß
+                }
             },
             "/seeTickets": () => {
-                renderTemplate(templateSeeTickets, "content");
-                initSeeTickets();
+                if(userRole === "USER" || userRole === "ADMIN") {
+                    renderTemplate(templateSeeTickets, "content");
+                    initSeeTickets();
+                }
+                else {
+                    renderTemplate(templateError, "content");
+                }
             },
             "/deleteTicket": () => {
-                renderTemplate(templateDeleteTicket, "content");
-                initDeleteTicket();
+                if(userRole === "USER" || userRole === "ADMIN") {
+                    renderTemplate(templateDeleteTicket, "content");
+                    initDeleteTicket();
+                }
             },
             "/logout": () => {
-                initLogout();
+                if(userRole === "USER" || userRole === "ADMIN") {
+                    initLogout();
+                }else {
+                    renderTemplate(templateError, "content");
+                }
             },
         })
         .resolve();
