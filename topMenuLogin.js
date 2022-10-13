@@ -111,7 +111,7 @@ function createTopMenu(linksToCreate){
         const a = document.createElement("a");
         const li = document.createElement("li");
     
-        console.log("test")
+
         a.textContent = linksToCreate[i].aText;
         a.setAttribute("href", linksToCreate[i].aLink);
         a.setAttribute("data-navigo", true)

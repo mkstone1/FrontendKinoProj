@@ -13,7 +13,7 @@ async function getScreening() {
         const movie = await fetch(kinoUrlMovies + movieId).then(handleHttpErrors);
         displayScreening(screening, movie);
     } catch (err) {
-        console.log(err);
+    
     }
 }
 

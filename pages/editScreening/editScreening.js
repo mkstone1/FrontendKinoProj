@@ -79,7 +79,7 @@ async function editSelection(screeningId) {
     const theater = await fetch(kinoUrlTheaters).then(handleHttpErrors)
 
     const selectedScreening = await getScreeningById(screeningId).then(data =>{
-        console.log(data)
+       
         setSelectedTheaterAndMovie(movies,data.movieId, "input-choose-movie")
         setSelectedTheaterAndMovie(theater,data.theaterId,"input-choose-theater")
         setSelectedDateTimeAndPrice(data.screeningStartTime, "input-choose-start-time")

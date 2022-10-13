@@ -23,10 +23,10 @@ function convertListOfSeatsToTicket() {
 }
 
 async function postTickets(tickets) {
-    console.log(tickets);
+
     for (let i = 0; i < tickets.length; i++) {
         const ticket = tickets[i];
-        console.log(ticket);
+     
         await makeNewTicket(ticket);
     }
     async function makeNewTicket(newTicket) {
@@ -34,7 +34,7 @@ async function postTickets(tickets) {
         options.method = "POST";
         options.headers = { "Content-type": "application/json" };
         options.body = JSON.stringify(newTicket);
-        console.log(options);
+  ;
         await fetch("http://localhost:8080/api/tickets/", options).then(handleHttpErrors);
     }
 }
@@ -76,7 +76,7 @@ async function createDisplay(seats, rows) {
 
             box.addEventListener("click", function () {
                 if (listOfSelectedSeats.includes(box.id)) {
-                    console.log(listOfSelectedSeats);
+                    
                     listOfSelectedSeats.splice(listOfSelectedSeats.indexOf(box.id), 1);
                     box.classList.remove("selected");
                 } else {
@@ -85,7 +85,7 @@ async function createDisplay(seats, rows) {
                     } else {
                         listOfSelectedSeats.push(box.id);
                         box.classList.add("selected");
-                        console.log(listOfSelectedSeats);
+                  
                     }
                 }
             });

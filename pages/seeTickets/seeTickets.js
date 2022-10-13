@@ -45,7 +45,7 @@ async function showTickets() {
         const screening = getScreeningFromId(screeningId);
         screening.then(async (screening) => {
             const screeningDate = new Date(screening.screeningStartTime)
-            console.log(screeningDate);
+    
 
 
             const td6 = document.createElement("td");
