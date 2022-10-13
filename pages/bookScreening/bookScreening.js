@@ -1,4 +1,4 @@
-import { handleHttpErrors, kinoUrlMovies, kinoUrlScreenings, kinoUrlTheaters } from "../../utils.js";
+import { handleHttpErrors, kinoUrlMovies, kinoUrlScreenings, kinoUrlTheaters, kinoUrlTickets } from "../../utils.js";
 
 let listOfSelectedSeats = [];
 let listOfTickets = [];
@@ -42,7 +42,7 @@ async function postTickets(tickets) {
         options.method = "POST";
         options.headers = { "Content-type": "application/json" };
         options.body = JSON.stringify(newTicket);
-        await fetch("http://localhost:8080/api/tickets/", options).then(handleHttpErrors);
+        await fetch(kinoUrlTickets, options).then(handleHttpErrors);
     }
 }
 
@@ -137,13 +137,13 @@ function createDisplay(seats, rows) {
 }
 
 async function getAllTicketsFromScreening(screeningId) {
-    const tickets = await fetch("http://localhost:8080/api/tickets/" + "screening/" + screeningId).then(handleHttpErrors);
+    const tickets = await fetch(kinoUrlTickets + "screening/" + screeningId).then(handleHttpErrors);
     return tickets;
 }
 
 //get price from screenings by screening id and display the total price of the tickets
 async function getPriceFromScreening(screeningId) {
-    const screening = await fetch("http://localhost:8080/api/screenings/" + screeningId).then(handleHttpErrors);
+    const screening = await fetch("kinoUrlScreenings" + screeningId).then(handleHttpErrors);
     return screening.price;
 }
 
